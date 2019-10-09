@@ -13,12 +13,26 @@ body
 	padding: 55px;
 }
 
-#field, #player, .object, #menu
+div
 {
-	background-repeat: no-repeat;
+	border: 1px red solid;
+}
+
+div
+{
 	background-position: center;
-	background-size: cover;
-}c
+	background-size: contain;
+}
+
+.ground
+{
+	background-repeat: repeat-x;
+	background-size: auto 100%;
+}
+#player
+{
+	background-size: 153%;
+}
 
 .object
 {

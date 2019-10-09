@@ -15,19 +15,19 @@ class Game
         this.element.appendChild(this.logo);
         this.start = document.createElement("p");
         this.element.appendChild(this.start);
-        this.logo.textContent = `МАНИСОВ the game`;
-        this.start.textContent = `Начать игру`;
+        this.logo.textContent = `SONIC the hedgehod`;
+        this.start.textContent = `click start`;
         this.start.addEventListener('click', function()
         {
-            let audio = new Audio('./audio/start.mp3');
-            audio.play();
+            // let audio = new Audio('./audio/start.mp3');
+            // audio.play();
             this.startGame();
         }.bind(this));
     }
 
     startGame()
     {
-        let field = new GameArena('field', this.height, this.width, './img/background1.jpg');
+        let field = new GameArena('field', this.height, this.width, './img/background1.png');
         let player = new GamePlayer('player', 100, 100, field, './img/sonicIdle.png');
         
         // let i = 0;
@@ -36,6 +36,9 @@ class Game
         //     window['object' + i] = new GameObject('object', 75, 25, field, player);
         //     i++;
         // }.bind(this), 1000);
+
+        let ground1 = new GameCollision('ground1', player, field, 150, 1150, 650, 0, './img/ground1.png');
+        let ground2 = new GameCollision('ground2', player, field, 150, 250, 510, 350, './img/ground1.png', '-1');
     }
 }
 

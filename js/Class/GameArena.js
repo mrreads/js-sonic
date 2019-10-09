@@ -10,5 +10,6 @@ class GameArena
         this.element.style.height = height + 'px';
         this.element.style.position = "relative";
         this.element.style.backgroundImage = 'url("'+img+'")';
+        this.element.style.zIndex = '-5';
     }
 }
