@@ -17,7 +17,7 @@ class GamePlayer
         this.rings = 0;
         this.lives = 3;
         this.isGround = false;
-        this.jumpForce = 25;
+        this.jumpForce = 10;
         this.mass = 2;
         this.keyboardControl();
         this.isJumping = false;
@@ -76,7 +76,7 @@ class GamePlayer
             {
                 this.move(23);
             }
-            if (event.code == 'KeyW') 
+            if (event.code == 'Space') 
             {
                 if (this.isJumping == false & this.isGround == true)
                 {
@@ -106,25 +106,31 @@ class GamePlayer
 
     initGravitation()
     {
-        setInterval(function()
+        self = this;
+        let temp;
+    
+        function startGravity() 
         {
-            
-            let temp;
-            if ((parseInt(this.element.style.top) + parseInt(this.element.style.height)) < (parseInt(this.field.style.height)))
+            self.gravity = setInterval(function () 
             {
-                temp = parseInt(this.element.style.top) + this.mass;
-                this.element.style.top = temp + 'px';
-                
-                if (this.isGround != true || this.isJumping == true)
+                if ((parseInt(self.element.style.top) + parseInt(self.element.style.height)) < (parseInt(self.field.style.height)))
                 {
-                    this.mass = this.mass + 1;
+                    temp = parseInt(self.element.style.top) + self.mass;
+                    self.element.style.top = temp + 'px';
+                    
+                    if (self.isGround != true || self.isJumping == true)
+                    {
+                        self.mass = self.mass + 1;
+                    }
+                    else
+                    {
+                        self.mass = 2;
+                    }
                 }
-                else
-                {
-                    this.mass = 2;
-                }
-            }
-        }.bind(this), 1000/60);
+            }, 1000/60);
+        }
+
+        setTimeout(startGravity, 1);
     }
 
     jump()
@@ -134,15 +140,17 @@ class GamePlayer
         
         let jump = setInterval(function () 
         {
-            if (counter == 10) 
+            if (counter == 20) 
             {
                 this.isJumping = false;
                 clearInterval(jump);
+                this.initGravitation();
             } 
             let temp;
             temp = parseInt(this.element.style.top) - parseInt(this.jumpForce);
             this.element.style.top = temp + 'px';
             counter++;
+            clearInterval(this.gravity);
         }.bind(this), 1000/60);
     }
 
