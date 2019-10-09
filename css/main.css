@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css?family=Pattaya&display=swap");
+
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	font-family: "Pattaya", sans-serif;
+
+	padding: 55px;
+}
+
+#field, #player, .object, #menu
+{
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}c
+
+.object
+{
+	background-size: contain;
+}
+
+#menu p:nth-child(1)
+{
+	font-size: 56px;
+
+	position: absolute;
+	top: 0;
+
+	width: 100%;
+	padding-top: 55px;
+
+	text-align: center;
+
+	color: red;
+}
+
+#menu p:nth-child(2)
+{
+	font-size: 56px;
+
+	position: absolute;
+	bottom: 0;
+
+	width: 100%;
+	padding-bottom: 125px;
+
+	cursor: pointer;
+	text-align: center;
+
+	color: pink;
+}
