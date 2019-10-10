@@ -28,7 +28,7 @@ class Game
     startGame()
     {
         let field = new GameArena('field', this.height, this.width, './img/background1.png');
-        let player = new GamePlayer('player', 100, 100, field, './img/sonicIdle.png');
+        let player = new GamePlayer('player', 66, 66, field, './img/sonicIdle.png');
         
         // let i = 0;
         // setInterval(function()

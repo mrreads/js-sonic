@@ -13,6 +13,7 @@ class GamePlayer
         this.element.style.top = 155 + 'px';
         this.element.style.left = (field.width / 2 - this.width) + 'px';
         this.element.style.backgroundImage = 'url("'+img+'")';
+        this.element.style.transform = 'scaleX(1)';
 
         this.rings = 0;
         this.lives = 3;
@@ -24,6 +25,13 @@ class GamePlayer
         this.initGravitation();
         this.initDebug();
         this.initScroll();
+
+        setInterval(function () {
+            this.checkIdle();
+        }.bind(this), 1000/60);
+
+        this.isMove = false;
+        this.direction;
     }
 
     move(value)
@@ -43,15 +51,19 @@ class GamePlayer
                     counter++;
                     if (value >= 0) 
                     {
+                        this.element.style.transform = 'scaleX(1)';
                         temp = parseInt(this.element.style.left) + 1;
                     } 
                     else 
                     {
+                        this.element.style.transform = 'scaleX(-1)';
                         temp = parseInt(this.element.style.left) - 1;
                     }
                     if (temp > 0) 
                     {
+                        this.isMove = true;
                         this.element.style.left = temp + "px";
+                        this.spriteAnimate(66, 66, 1, 6, './img/sonicWalk.png');
                     }
                 }
 
@@ -62,6 +74,19 @@ class GamePlayer
                 }
             }.bind(this), 1000/60);
         }
+    }
+
+    spriteAnimate(height, width, margin, count, img)
+    {
+        this.element.style.backgroundPosition = '0px'
+        this.element.style.backgroundSize = (count * width) + 'px';
+        this.element.style.backgroundImage = 'url("'+img+'")';
+        
+        let temp;
+        this.spriteInterval = setInterval(() => {
+            temp = parseInt(this.element.style.backgroundPosition) + width;
+            this.element.style.backgroundPosition = temp + 'px';
+        }, )
     }
 
     keyboardControl()
@@ -96,9 +121,10 @@ class GamePlayer
         document.querySelector('.debug').appendChild(this.debugText);
         this.debugText = document.createElement("p");
         document.querySelector('.debug').appendChild(this.debugText);
+    
 
         setInterval(function()
-        {   
+        {
             document.querySelector(".debug p:nth-child(1)").textContent = `Rings: ${this.rings}`;
             document.querySelector(".debug p:nth-child(2)").textContent = `Lives: ${this.lives}`;
         }.bind(this), 1000/60);
@@ -187,5 +213,30 @@ class GamePlayer
             }
 
         }.bind(this), 1);
+    }
+
+    checkIdle() 
+    {
+        this.tempOldOne = this.element.style.top;
+        this.tempOldTwo = this.element.style.left;
+
+        setTimeout(function () 
+        {
+            this.tempNewOne = this.element.style.top;
+            this.tempNewTwo = this.element.style.left;
+        }.bind(this), 1000/60);
+
+        if ((this.tempOldOne == this.tempNewOne) && (this.tempOldTwo == this.tempNewTwo)) 
+        {
+            this.isMove = false;
+        }
+
+        if (this.isMove == false)
+        {
+            clearInterval(this.spriteInterval);
+            this.element.style.backgroundPosition = '0px'
+            this.element.style.backgroundSize = '100%';
+            this.element.style.backgroundImage = 'url("./img/sonicIdle.png")';
+        }
     }
 }
