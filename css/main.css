@@ -1,21 +1,27 @@
-@import url("https://fonts.googleapis.com/css?family=Pattaya&display=swap");
+@font-face 
+{
+    font-family: "Sonic-1-HUD-Font";
+    src: url("./../fonts/Sonic-1-HUD-Font.ttf");
+}
 
 *
 {
 	margin: 0;
 	padding: 0;
+	image-rendering: pixelated;
 }
 
 body
 {
-	font-family: "Pattaya", sans-serif;
+	font-family: "Sonic-1-HUD-Font";
 
 	padding: 55px;
 }
 
 div
 {
-	border: 1spx red solid;
+	overflow: hidden;
+	border: 1px red solid;
 }
 
 div
@@ -64,4 +70,23 @@ div
 	text-align: center;
 
 	color: pink;
+}
+
+.hud
+{
+	padding: 25px 45px;
+}
+
+.hud p
+{
+	height: 50px;
+	font-size: 52px;
+    color: #e8e400;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0px black;
+}
+
+.hud p span
+{
+	color: white;
 }

@@ -16,10 +16,14 @@ class GamePlayer
         this.element.style.backgroundSize = '156%';
         this.element.style.transform = 'scaleX(1)';
 
+        this.score = 0;
         this.rings = 0;
         this.lives = 3;
+        this.minutes = 0;
+        this.seconds = 0;
+
         this.isGround = false;
-        this.jumpForce = 10;
+        this.jumpForce = 15;
         this.mass = 2;
         this.keyboardControl();
         this.isJumping = false;
@@ -27,7 +31,7 @@ class GamePlayer
         this.isCrouch = false;
         this.isRoll = false;
         this.initGravitation();
-        this.initDebug();
+        this.initHud();
         this.initScroll();
 
         setInterval(function () {
@@ -120,25 +124,57 @@ class GamePlayer
         
     }
 
-    initDebug()
+    initHud()
     {
-        this.debug = document.createElement("div");
-        this.field.appendChild(this.debug);
-        this.debug.classList.add('debug');
-        this.debugText = document.createElement("p");
-        document.querySelector('.debug').appendChild(this.debugText);
-        this.debugText = document.createElement("p");
-        document.querySelector('.debug').appendChild(this.debugText);
-    
+
+        this.hud = document.createElement("div");
+        this.field.appendChild(this.hud);
+        this.hud.classList.add('hud');
+        this.hudText = document.createElement("p");
+        document.querySelector('.hud').appendChild(this.hudText);
+        this.hudText = document.createElement("p");
+        document.querySelector('.hud').appendChild(this.hudText);
+        this.hudText = document.createElement("p");
+        document.querySelector('.hud').appendChild(this.hudText);
+        document.querySelector(".hud p:nth-child(2)").innerHTML = `Time: <span>${this.minutes}:${this.seconds + '0'}</span>`;
 
         setInterval(function()
-        {
-
-            console.log('isMove - ', this.isMove);
-            
-            document.querySelector(".debug p:nth-child(1)").textContent = `Rings: ${this.rings}`;
-            document.querySelector(".debug p:nth-child(2)").textContent = `Lives: ${this.lives}`;
+        {   
+            document.querySelector(".hud p:nth-child(1)").innerHTML = `Score: <span> ${this.score} </span>`;
+            document.querySelector(".hud p:nth-child(3)").innerHTML = `Rings: <span class="rings"> ${this.rings} </span>`;
         }.bind(this), 1000/60);
+
+        let ringFlag = false;
+        setInterval(function()
+        {
+            ++this.seconds;
+            if (this.seconds.toString().length == 1)
+            {
+                this.seconds = '0' + this.seconds;
+            }
+            if (parseInt(this.seconds) == 61)
+            {
+                this.minutes++;
+                this.seconds = '0' + 0;
+            }
+            document.querySelector(".hud p:nth-child(2)").innerHTML = `Time: <span>${this.minutes}:${this.seconds}</span>`;
+
+            if (parseInt(this.rings) === 0)
+            {
+                if (ringFlag == true)
+                {
+                    document.querySelector(".hud p:nth-child(3)").style.color = "red";
+                    ringFlag = false;
+                    
+                }
+                else
+                {
+                    document.querySelector(".hud p:nth-child(3)").style.color = "#e8e400";
+                    ringFlag = true;
+                }
+                
+            }
+        }.bind(this), 1000);
     }
 
     initGravitation()

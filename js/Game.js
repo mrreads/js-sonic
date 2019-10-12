@@ -28,7 +28,7 @@ class Game
     startGame()
     {
         let field = new GameArena('field', this.height, this.width, './img/background1.png');
-        let player = new GamePlayer('player', 66, 66, field, './img/sonicIdle.png');
+        let player = new GamePlayer('player', 130, 130, field, './img/sonicIdle.png');
         
         // let i = 0;
         // setInterval(function()
@@ -37,10 +37,10 @@ class Game
         //     i++;
         // }.bind(this), 1000);
 
-        let ground1 = new GameCollision('ground1', player, field, 150, 2150, 650, 0, './img/ground1.png');
-        let ground2 = new GameCollision('ground2', player, field, 150, 250, 510, 350, './img/ground1.png', '-1');
+        let ground1 = new GameCollision('ground1', player, field, 250, 2150, 600, 0, './img/ground1.png');
+        let ground2 = new GameCollision('ground2', player, field, 250, 550, 410, 350, './img/ground1.png', '-1');
     }
 }
 
-let game = new Game(800, 800, './img/menu1.jpg');
+let game = new Game(720, 960, './img/menu1.jpg');
 
