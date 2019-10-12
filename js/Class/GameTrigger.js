@@ -33,6 +33,8 @@ class GameTrigger
                 
                 if (this.isPickable == true && this.isPicked == false)
                 {
+                    let audioJump = new Audio('./audio/objectRing.wav');
+                    audioJump.play();
                     this.player.rings += 1;
                     this.isPicked = true;
                     this.element.remove();

@@ -28,19 +28,20 @@ class Game
     startGame()
     {
         let field = new GameArena('field', this.height, this.width, './img/background1.png');
-        let player = new GamePlayer('player', 130, 130, field, './img/sonicIdle.png');
+        let player = new GamePlayer('player', 130, 130, 300, 100, field, './img/sonicIdle.png');
         
-        // let i = 0;
-        // setInterval(function()
-        // {
-        //     window['object' + i] = new GameObject('object', 75, 25, field, player);
-        //     i++;
-        // }.bind(this), 1000);
+
 
         let ground1 = new GameCollision('ground1', player, field, 250, 2150, 600, 0, './img/ground1.png');
         let ground2 = new GameCollision('ground2', player, field, 250, 550, 410, 350, './img/ground1.png', '-1');
 
-        let ring1 = new GameTrigger('ring', player, field, 50, 50, 330, 600, './img/objectRing.gif', true);
+        let temp = 50;
+        for (let i = 0; i < 5; i++)
+        {
+            window['ring' + i] = new GameTrigger('ring' + i, player, field, 50, 50, 300, 500 + temp, './img/objectRing.gif', true);
+            i++;
+            temp = temp + 100;
+        }
     }
 }
 

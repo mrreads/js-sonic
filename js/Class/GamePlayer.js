@@ -1,6 +1,6 @@
 class GamePlayer
 {
-    constructor(id, height, width, field, img)
+    constructor(id, height, width, top, left, field, img)
     {
         this.field =  field.element;
         this.height = height;
@@ -10,8 +10,8 @@ class GamePlayer
         this.element.style.width = width + 'px';
         this.element.style.height = height + 'px';
         this.element.style.position = "absolute";
-        this.element.style.top = 155 + 'px';
-        this.element.style.left = (field.width / 2 - this.width) + 'px';
+        this.element.style.top = top + 'px';
+        this.element.style.left = left + 'px';
         this.element.style.backgroundImage = 'url("'+img+'")';
         this.element.style.backgroundSize = '156%';
         this.element.style.transform = 'scaleX(1)';
@@ -174,6 +174,11 @@ class GamePlayer
                 }
                 
             }
+            else
+            {
+                ringFlag = false;
+                document.querySelector(".hud p:nth-child(3)").style.color = "#e8e400";
+            }
         }.bind(this), 1000);
     }
 
@@ -276,9 +281,10 @@ class GamePlayer
 
     initScroll()
     {
+        this.startScreen = -150;
         this.objects = [];
         setInterval(function()
-        {
+        {   
             if ((parseInt(this.element.style.left) + parseInt(this.element.style.width)) > (parseInt(this.field.style.width) / 2 + 150))
             {
                 this.temp = ((parseInt(this.field.style.width) / 2 + 150) - parseInt(this.element.style.width));
@@ -288,12 +294,13 @@ class GamePlayer
 
                 for (let i = 1; i < this.objects.length; i++)
                 {
+                    this.startScreen = this.startScreen + 2;
                     this.temp = parseInt(this.objects[i].style.left) - 2;
                     this.objects[i].style.left = this.temp + "px";
                 }
             }
 
-            if ((parseInt(this.element.style.left) < 2))
+            if ((parseInt(this.element.style.left) < 2) && (this.startScreen > 2))
             {
                 this.element.style.left = 2 + 'px';
 
@@ -301,6 +308,7 @@ class GamePlayer
 
                 for (let i = 1; i < this.objects.length; i++)
                 {
+                    this.startScreen = this.startScreen - 2;
                     this.temp = parseInt(this.objects[i].style.left) + 2;
                     this.objects[i].style.left = this.temp + "px";
                 }
