@@ -37,7 +37,7 @@ class Game
         //     i++;
         // }.bind(this), 1000);
 
-        let ground1 = new GameCollision('ground1', player, field, 150, 1150, 650, 0, './img/ground1.png');
+        let ground1 = new GameCollision('ground1', player, field, 150, 2150, 650, 0, './img/ground1.png');
         let ground2 = new GameCollision('ground2', player, field, 150, 250, 510, 350, './img/ground1.png', '-1');
     }
 }

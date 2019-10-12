@@ -23,57 +23,66 @@ class GamePlayer
         this.mass = 2;
         this.keyboardControl();
         this.isJumping = false;
+        this.canMove = true;
+        this.isCrouch = false;
+        this.isRoll = false;
         this.initGravitation();
         this.initDebug();
         this.initScroll();
 
         setInterval(function () {
             this.checkIdle();
-        }.bind(this), 1000/60);
+        }.bind(this), 150);
 
         this.isMove = false;
-        this.direction;
     }
 
     move(value)
     {
-        if (!((parseInt(this.element.style.left) + parseInt(value)) > (parseInt(this.field.style.width) - parseInt(this.element.style.width)))) 
+        if (this.isCrouch == false)
         {
-            let counter = 0;
-            let move = setInterval(function () 
+            if (((parseInt(this.element.style.left) + parseInt(value)) > (parseInt(this.field.style.width) - parseInt(this.element.style.width))) == false) 
             {
-                if (counter == Math.abs(value)) 
+                let counter = 0;
+                let move = setInterval(function () 
                 {
-                    clearInterval(move);
-                } 
-                else 
-                {
-                    let temp;
-                    counter++;
-                    if (value >= 0) 
+                    if (counter == Math.abs(value)) 
                     {
-                        this.element.style.transform = 'scaleX(1)';
-                        temp = parseInt(this.element.style.left) + 1;
+                        clearInterval(move);
                     } 
                     else 
                     {
-                        this.element.style.transform = 'scaleX(-1)';
-                        temp = parseInt(this.element.style.left) - 1;
+                        let temp;
+                        counter++;
+                        if (value >= 0) 
+                        { 
+                            this.element.style.transform = 'scaleX(1)';
+                            temp = parseInt(this.element.style.left) + 1;
+                        } 
+                        else 
+                        {
+                            this.element.style.transform = 'scaleX(-1)';
+                            temp = parseInt(this.element.style.left) - 1;
+                        }
+                        if (temp > 0) 
+                        {
+                            this.isMove = true;
+                            this.element.style.left = temp + "px";
+                            if (this.isJumping == false && this.isRoll == false) { this.startAnimate('walk'); }
+                        }
                     }
-                    if (temp > 0) 
-                    {
-                        this.isMove = true;
-                        this.element.style.left = temp + "px";
-                        if (this.isJumping == false) { this.startAnimate('walk'); }
-                    }
-                }
 
-                if ((parseInt(this.element.style.left) + parseInt(this.width)) > parseInt(this.field.style.width))
-                {
-                    let temp = (parseInt(this.field.style.width) - parseInt(this.element.style.width));
-                    this.element.style.left = temp + 'px';
-                }
-            }.bind(this), 1000/60);
+                    if ((parseInt(this.element.style.left) + parseInt(this.width)) > parseInt(this.field.style.width))
+                    {
+                        let temp = (parseInt(this.field.style.width) - parseInt(this.element.style.width));
+                        this.element.style.left = temp + 'px';
+                    }
+                }.bind(this), 1000/60);
+            }
+        }
+        else
+        {
+            this.isCrouch = false;
         }
     }
 
@@ -83,18 +92,29 @@ class GamePlayer
         {
             if (event.code == 'KeyA') 
             {
-                this.move(-23);
+                this.move(-25);
             }
             if (event.code == 'KeyD') 
             {
-                this.move(23);
+                this.move(25);
             }
+
             if (event.code == 'Space') 
             {
                 if (this.isJumping == false & this.isGround == true)
                 {
                     this.jump();
                 }
+            }
+            
+            if (event.code == 'KeyS' && this.isMove == false) 
+            {
+                this.crouch();
+            }
+            if (event.code == 'KeyS' && this.isMove == true) 
+            {
+                this.isRoll = true; 
+                this.startAnimate('jump');
             }
         }.bind(this));
         
@@ -114,6 +134,7 @@ class GamePlayer
         setInterval(function()
         {
 
+            console.log('isMove - ', this.isMove);
             
             document.querySelector(".debug p:nth-child(1)").textContent = `Rings: ${this.rings}`;
             document.querySelector(".debug p:nth-child(2)").textContent = `Lives: ${this.lives}`;
@@ -157,6 +178,7 @@ class GamePlayer
         
         let counter = 0;
         this.isJumping = true;
+        this.isCrouch = false;
         let jump = setInterval(function () 
         {
             if (counter == 20) 
@@ -172,6 +194,19 @@ class GamePlayer
             clearInterval(this.gravity);
             
         }.bind(this), 1000/60);
+    }
+
+    crouch()
+    {
+        this.isCrouch = true;
+        setInterval(() =>
+        {
+            if (this.isCrouch == true)
+            {
+                this.canMove = false;
+                this.startAnimate('crouch');
+            }
+        }, 1000/60);
     }
 
     startAnimate(arg)
@@ -194,6 +229,12 @@ class GamePlayer
             this.element.style.backgroundPosition = 'center center';
             this.element.style.backgroundSize = '156%';
         }
+        if (arg == 'crouch')
+        {
+            this.element.style.backgroundImage = 'url("./img/sonicCrouch.png")';
+            this.element.style.backgroundPosition = 'center center';
+            this.element.style.backgroundSize = '156%';
+        }
     }
 
     initScroll()
@@ -210,7 +251,7 @@ class GamePlayer
 
                 for (let i = 1; i < this.objects.length; i++)
                 {
-                    this.temp = parseInt(this.objects[i].style.left) - 1;
+                    this.temp = parseInt(this.objects[i].style.left) - 2;
                     this.objects[i].style.left = this.temp + "px";
                 }
             }
@@ -223,7 +264,7 @@ class GamePlayer
 
                 for (let i = 1; i < this.objects.length; i++)
                 {
-                    this.temp = parseInt(this.objects[i].style.left) + 1;
+                    this.temp = parseInt(this.objects[i].style.left) + 2;
                     this.objects[i].style.left = this.temp + "px";
                 }
             }
@@ -233,21 +274,20 @@ class GamePlayer
 
     checkIdle() 
     {
-        this.tempOldOne = this.element.style.top;
-        this.tempOldTwo = this.element.style.left;
+        this.tempOld = this.element.style.left;
 
         setTimeout(function () 
         {
-            this.tempNewOne = this.element.style.top;
-            this.tempNewTwo = this.element.style.left;
-        }.bind(this), 1000/60);
+            this.tempNew = this.element.style.left;
+        }.bind(this), 100);
 
-        if ((this.tempOldOne == this.tempNewOne) && (this.tempOldTwo == this.tempNewTwo)) 
+        if ((this.tempOld == this.tempNew)) 
         {
             this.isMove = false;
+            this.isRoll = false;
         }
 
-        if (this.isMove == false && this.isGround == true)
+        if (this.isMove == false && this.isGround == true && this.isCrouch == false)
         {
             this.startAnimate('idle');
         }
