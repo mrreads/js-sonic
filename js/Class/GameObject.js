@@ -9,15 +9,11 @@ class GameObject
         this.element = document.createElement("div");
         this.field.appendChild(this.element);
         this.element.classList.add(name);
-        this.random = Math.round(Math.random() * (parseInt(this.field.style.width) - parseInt(this.width)));
         this.element.style.width = width + 'px';
         this.element.style.height = height + 'px';
         this.element.style.position = "absolute";
         this.element.style.top = 0 + 'px';
         this.element.style.left = this.random + 'px';
-        this.randomImage();
-        this.isRemoved = false;
-        this.isPicked = false;
 
         this.create();
     }

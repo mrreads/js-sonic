@@ -39,6 +39,8 @@ class Game
 
         let ground1 = new GameCollision('ground1', player, field, 250, 2150, 600, 0, './img/ground1.png');
         let ground2 = new GameCollision('ground2', player, field, 250, 550, 410, 350, './img/ground1.png', '-1');
+
+        let ring1 = new GameTrigger('ring', player, field, 50, 50, 330, 600, './img/objectRing.gif', true);
     }
 }
 

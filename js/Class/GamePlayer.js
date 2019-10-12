@@ -211,7 +211,8 @@ class GamePlayer
 
     jump()
     {
-        
+        let audioJump = new Audio('./audio/sonicJump.wav');
+        audioJump.play();
         let counter = 0;
         this.isJumping = true;
         this.isCrouch = false;
