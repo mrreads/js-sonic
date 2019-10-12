@@ -13,6 +13,7 @@ class GamePlayer
         this.element.style.top = 155 + 'px';
         this.element.style.left = (field.width / 2 - this.width) + 'px';
         this.element.style.backgroundImage = 'url("'+img+'")';
+        this.element.style.backgroundSize = '156%';
         this.element.style.transform = 'scaleX(1)';
 
         this.rings = 0;
@@ -63,7 +64,7 @@ class GamePlayer
                     {
                         this.isMove = true;
                         this.element.style.left = temp + "px";
-                        this.spriteAnimate(66, 66, 1, 6, './img/sonicWalk.png');
+                        if (this.isJumping == false) { this.startAnimate('walk'); }
                     }
                 }
 
@@ -74,19 +75,6 @@ class GamePlayer
                 }
             }.bind(this), 1000/60);
         }
-    }
-
-    spriteAnimate(height, width, margin, count, img)
-    {
-        this.element.style.backgroundPosition = '0px'
-        this.element.style.backgroundSize = (count * width) + 'px';
-        this.element.style.backgroundImage = 'url("'+img+'")';
-        
-        let temp;
-        this.spriteInterval = setInterval(() => {
-            temp = parseInt(this.element.style.backgroundPosition) + width;
-            this.element.style.backgroundPosition = temp + 'px';
-        }, )
     }
 
     keyboardControl()
@@ -125,6 +113,8 @@ class GamePlayer
 
         setInterval(function()
         {
+
+            
             document.querySelector(".debug p:nth-child(1)").textContent = `Rings: ${this.rings}`;
             document.querySelector(".debug p:nth-child(2)").textContent = `Lives: ${this.lives}`;
         }.bind(this), 1000/60);
@@ -141,9 +131,12 @@ class GamePlayer
             {
                 if ((parseInt(self.element.style.top) + parseInt(self.element.style.height)) < (parseInt(self.field.style.height)))
                 {
+                    
                     temp = parseInt(self.element.style.top) + self.mass;
                     self.element.style.top = temp + 'px';
                     
+                    if (this.isGround == false) { this.startAnimate('jump'); }
+
                     if (self.isGround != true || self.isJumping == true)
                     {
                         self.mass = self.mass + 1;
@@ -161,9 +154,9 @@ class GamePlayer
 
     jump()
     {
+        
         let counter = 0;
         this.isJumping = true;
-        
         let jump = setInterval(function () 
         {
             if (counter == 20) 
@@ -171,13 +164,36 @@ class GamePlayer
                 this.isJumping = false;
                 clearInterval(jump);
                 this.initGravitation();
-            } 
+            }
             let temp;
             temp = parseInt(this.element.style.top) - parseInt(this.jumpForce);
             this.element.style.top = temp + 'px';
             counter++;
             clearInterval(this.gravity);
+            
         }.bind(this), 1000/60);
+    }
+
+    startAnimate(arg)
+    {
+        if (arg == 'jump')
+        {
+            this.element.style.backgroundImage = 'url("./img/sonicJump.gif")';
+            this.element.style.backgroundPosition = 'center -20px';
+            this.element.style.backgroundSize = '165%';
+        }
+        if (arg == 'walk')
+        {
+            this.element.style.backgroundImage = 'url("./img/sonicWalk.gif")';
+            this.element.style.backgroundPosition = 'center center';
+            this.element.style.backgroundSize = '156%';
+        }
+        if (arg == 'idle')
+        {
+            this.element.style.backgroundImage = 'url("./img/sonicIdle.png")';
+            this.element.style.backgroundPosition = 'center center';
+            this.element.style.backgroundSize = '156%';
+        }
     }
 
     initScroll()
@@ -231,12 +247,14 @@ class GamePlayer
             this.isMove = false;
         }
 
-        if (this.isMove == false)
+        if (this.isMove == false && this.isGround == true)
         {
-            clearInterval(this.spriteInterval);
-            this.element.style.backgroundPosition = '0px'
-            this.element.style.backgroundSize = '100%';
-            this.element.style.backgroundImage = 'url("./img/sonicIdle.png")';
+            this.startAnimate('idle');
+        }
+        
+        if (this.isJumping == true)
+        {
+            this.startAnimate('jump');
         }
     }
 }
