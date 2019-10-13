@@ -312,6 +312,9 @@ class GamePlayer
         {   
             if ((parseInt(this.element.style.left) + parseInt(this.element.style.width)) > (parseInt(this.field.style.width) / 2 + 150))
             {
+                this.backgroundTemp = parseInt(this.field.style.backgroundPosition) - 1;
+                this.field.style.backgroundPosition = this.backgroundTemp + 'px center';
+
                 this.temp = ((parseInt(this.field.style.width) / 2 + 150) - parseInt(this.element.style.width));
                 this.element.style.left = this.temp + 'px';
 
@@ -322,11 +325,15 @@ class GamePlayer
                     this.startScreen = this.startScreen + 2;
                     this.temp = parseInt(this.objects[i].style.left) - 2;
                     this.objects[i].style.left = this.temp + "px";
+                    let backgroundTemp = parseInt(this.field.backgroundPosition);
                 }
             }
 
             if ((parseInt(this.element.style.left) < 200) && (this.startScreen > 2))
             {
+                this.backgroundTemp = parseInt(this.field.style.backgroundPosition) + 1;
+                this.field.style.backgroundPosition = this.backgroundTemp + 'px center';
+
                 this.element.style.left = 200 + 'px';
 
                 this.objects = this.field.children;
