@@ -30,6 +30,7 @@ class GamePlayer
         this.canMove = true;
         this.isCrouch = false;
         this.isRoll = false;
+        this.isLookUp = false;
         this.initGravitation();
         this.initHud();
         this.initScroll();
@@ -87,6 +88,7 @@ class GamePlayer
         else
         {
             this.isCrouch = false;
+            this.isLookUp = false;
         }
     }
 
@@ -111,15 +113,22 @@ class GamePlayer
                 }
             }
             
-            if (event.code == 'KeyS' && this.isMove == false) 
+            if (event.code == 'KeyS' && this.isMove == false && this.isJumping == false) 
             {
                 this.crouch();
             }
-            if (event.code == 'KeyS' && this.isMove == true) 
+            if (event.code == 'KeyS' && this.isMove == true && this.isJumping == false) 
             {
-                this.isRoll = true; 
+                this.isRoll = true;
+                let audioRoll = new Audio('./audio/sonicRoll.wav');
+                audioRoll.play();
                 this.startAnimate('jump');
             }
+
+            if ((event.code == 'KeyW' && this.isMove == false && this.isJumping == false && this.isGround == true))
+            {
+                this.lookUp();
+            } 
         }.bind(this));
         
     }
@@ -140,6 +149,8 @@ class GamePlayer
 
         setInterval(function()
         {   
+            console.log(this.isLookUp);
+            
             document.querySelector(".hud p:nth-child(1)").innerHTML = `Score: <span> ${this.score} </span>`;
             document.querySelector(".hud p:nth-child(3)").innerHTML = `Rings: <span class="rings"> ${this.rings} </span>`;
         }.bind(this), 1000/60);
@@ -238,8 +249,16 @@ class GamePlayer
         }.bind(this), 1000/60);
     }
 
+    lookUp()
+    {
+        this.startAnimate('up');
+        this.isLookUp = true;
+        this.isCrouch = false;
+    }
+
     crouch()
     {
+        this.isLookUp = false;
         this.isCrouch = true;
         setInterval(() =>
         {
@@ -274,6 +293,12 @@ class GamePlayer
         if (arg == 'crouch')
         {
             this.element.style.backgroundImage = 'url("./img/sonicCrouch.png")';
+            this.element.style.backgroundPosition = 'center center';
+            this.element.style.backgroundSize = '156%';
+        }
+        if (arg == 'up')
+        {
+            this.element.style.backgroundImage = 'url("./img/sonicLookUp.png")';
             this.element.style.backgroundPosition = 'center center';
             this.element.style.backgroundSize = '156%';
         }
@@ -331,8 +356,14 @@ class GamePlayer
             this.isMove = false;
             this.isRoll = false;
         }
+        
+        if (this.isMove == true)
+        {
+            this.isLookUp = false;
+            this.isCrouch = false;
+        }
 
-        if (this.isMove == false && this.isGround == true && this.isCrouch == false)
+        if (this.isMove == false && this.isGround == true && this.isCrouch == false && this.isLookUp == false)
         {
             this.startAnimate('idle');
         }
