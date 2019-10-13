@@ -32,10 +32,11 @@ class Game
         
 
         //(name, player, field, height, width, top, left, img, zIndex)
-        let ground1 = new GameCollision('ground1', player, field, 250, 2150, 600, 0, './img/ground1.png');
-        let ground2 = new GameCollision('ground2', player, field, 250, 350, 410, 350, './img/ground1.png', '-1');
+        let ground1 = new GameCollision('ground1', player, field, 250, 4150, 600, 0, './img/ground1.png');
+        let ground2 = new GameCollision('ground2', player, field, 250, 550, 410, 400, './img/ground1.png', '-1');
         let ground3 = new GameCollision('ground3', player, field, 250, 350, 410, 1550, './img/ground1.png', '-1');
-        let ground4 = new GameCollision('ground4', player, field, 250, 350, 410, 2750, './img/ground1.png', '-1');
+        let ground4 = new GameCollision('ground4', player, field, 250, 350, 410, 2150, './img/ground1.png', '-1');
+        let ground5 = new GameCollision('ground5', player, field, 250, 350, 410, 3450, './img/ground1.png', '-1');
 
         let spring1 = new GameCollision('spring1', player, field, 50, 100, 570, 1100, './img/objectSpring.png', '-1', 'spring');
 

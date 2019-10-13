@@ -76,6 +76,7 @@ class GameCollision
                         if (this.type == 'spring')
                         {
                             player.jump();
+                            this.tempGround = null;
                         }
                     }
                 }
