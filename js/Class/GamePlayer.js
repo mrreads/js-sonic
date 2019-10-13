@@ -325,9 +325,9 @@ class GamePlayer
                 }
             }
 
-            if ((parseInt(this.element.style.left) < 2) && (this.startScreen > 2))
+            if ((parseInt(this.element.style.left) < 200) && (this.startScreen > 2))
             {
-                this.element.style.left = 2 + 'px';
+                this.element.style.left = 200 + 'px';
 
                 this.objects = this.field.children;
 
