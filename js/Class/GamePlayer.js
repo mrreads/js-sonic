@@ -148,9 +148,7 @@ class GamePlayer
         document.querySelector(".hud p:nth-child(2)").innerHTML = `Time: <span>${this.minutes}:${this.seconds + '0'}</span>`;
 
         setInterval(function()
-        {   
-            console.log(this.isLookUp);
-            
+        {
             document.querySelector(".hud p:nth-child(1)").innerHTML = `Score: <span> ${this.score} </span>`;
             document.querySelector(".hud p:nth-child(3)").innerHTML = `Rings: <span class="rings"> ${this.rings} </span>`;
         }.bind(this), 1000/60);

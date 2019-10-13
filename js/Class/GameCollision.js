@@ -1,6 +1,6 @@
 class GameCollision 
 {
-    constructor(name, player, field, height, width, top, left, img, zIndex) 
+    constructor(name, player, field, height, width, top, left, img, zIndex, type) 
     {
         this.name = name;
         this.player = player.element;
@@ -20,19 +20,25 @@ class GameCollision
         this.element.style.backgroundImage = 'url("'+img+'")';
         this.element.style.zIndex = 'unset';
         this.element.style.zIndex = zIndex;
+        this.isGround = false;
+        this.type = 'collision';
+        this.type = type;
 
         // Каждые **ms проверяется, входит ли игрок в коллизию. Если входит - отталкивает обратно.
         setInterval(function () 
-        {
+        {          
             // LEFT COLLISION
             // ЕСЛИ - ЛЕВЫЕ КООРДИНАТЫ ИГРОКА + ШИРИНА ИГРОКА >БОЛЬШЕ> ЛЕВЫЕ КООРДИНАТЫ ОБЬЕКТА (дальше логика на ограничения действия коллизии)
             if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
             {
                 // ограничение действия коллизии по вертикали
-                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
+                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) - 25) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
                 {
-                    let temp = (parseInt(this.element.style.left) - parseInt(this.player.style.width));
-                    this.player.style.left = temp + 'px';
+                    if (this.name == this.element.classList[1])
+                    {
+                        let temp = (parseInt(this.element.style.left) - parseInt(this.player.style.width));
+                        this.player.style.left = temp + 'px';
+                    }
                 }
             }
 
@@ -41,10 +47,13 @@ class GameCollision
             if (((parseInt(this.player.style.left)) < ((parseInt(this.element.style.left) + parseInt(this.element.style.width)))) && !(parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
             {
                 // ограничение действия коллизии по вертикали
-                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
+                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) - 25) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
                 {
-                    let temp = (parseInt(this.element.style.left) + parseInt(this.element.style.width));
-                    this.player.style.left = temp + 'px';
+                    if (this.name == this.element.classList[1])
+                    {
+                        let temp = (parseInt(this.element.style.left) + parseInt(this.element.style.width));
+                        this.player.style.left = temp + 'px';
+                    }
                 }
             }
 
@@ -55,15 +64,32 @@ class GameCollision
                 // ограничение действия коллизии по горизонтали
                 if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width)))) 
                 {
-                    player.isGround = true;
-                    player.mass = 2;
-                    let temp = (parseInt(this.element.style.top) - parseInt(this.player.style.height));
-                    this.player.style.top = temp + 'px';
+                    this.tempGround = this.element.classList[1];
+                    if (this.tempGround == this.element.classList[1])
+                    {
+                        this.tempGround = this.name;
+                        player.isGround = true;
+                        player.mass = 2;
+                        let temp = (parseInt(this.element.style.top) - parseInt(this.player.style.height));
+                        this.player.style.top = temp + 'px';
+
+                        if (this.type == 'spring')
+                        {
+                            player.jump();
+                        }
+                    }
+                }
+                else
+                {
+                    this.tempGround = null;
                 }
             }
             else
             {
-                player.isGround = false;
+                if (this.tempGround == this.element.classList[1])
+                {
+                    player.isGround = false;
+                }
             }
 
             // BOTTOM COLLISION
@@ -73,8 +99,11 @@ class GameCollision
                 // ограничение действия коллизии по горизонтали
                 if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width)))) 
                 {
-                    let temp = (parseInt(this.element.style.top) + parseInt(this.element.style.height));
-                    this.player.style.top = temp + 'px';
+                    if (this.name == this.element.classList[1])
+                    {
+                        let temp = (parseInt(this.element.style.top) + parseInt(this.element.style.height));
+                        this.player.style.top = temp + 'px';
+                    }
                 }
             }
 
