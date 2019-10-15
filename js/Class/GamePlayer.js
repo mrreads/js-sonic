@@ -40,6 +40,7 @@ class GamePlayer
         }.bind(this), 150);
 
         this.isMove = false;
+        this.jumpSoundDisabled = false;
     }
 
     move(value)
@@ -225,8 +226,11 @@ class GamePlayer
 
     jump()
     {
-        let audioJump = new Audio('./audio/sonicJump.wav');
-        audioJump.play();
+        if (this.jumpSoundDisabled == false)
+        {
+            let audioJump = new Audio('./audio/sonicJump.wav');
+            audioJump.play();
+        }
         let counter = 0;
         this.isJumping = true;
         this.isCrouch = false;

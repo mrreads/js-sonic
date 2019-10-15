@@ -38,7 +38,7 @@ class Game
         let ground4 = new GameCollision('ground4', player, field, 250, 350, 410, 2150, './img/ground1.png', '-1');
         let ground5 = new GameCollision('ground5', player, field, 250, 350, 410, 3450, './img/ground1.png', '-1');
 
-        let spring1 = new GameCollision('spring1', player, field, 50, 100, 570, 1100, './img/objectSpring.png', '-1', 'spring');
+        let spring1 = new GameCollision('spring1', player, field, 50, 100, 570, 951, './img/objectSpring.png', '-1', 'spring');
 
         let temp = 50;
         for (let i = 0; i < 5; i++)

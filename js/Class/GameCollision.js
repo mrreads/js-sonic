@@ -23,7 +23,8 @@ class GameCollision
         this.isGround = false;
         this.type = 'collision';
         this.type = type;
-
+        let playSoundOnce = false;
+        
         // Каждые **ms проверяется, входит ли игрок в коллизию. Если входит - отталкивает обратно.
         setInterval(function () 
         {          
@@ -32,7 +33,7 @@ class GameCollision
             if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
             {
                 // ограничение действия коллизии по вертикали
-                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) - 25) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
+                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
                 {
                     if (this.name == this.element.classList[1])
                     {
@@ -47,7 +48,7 @@ class GameCollision
             if (((parseInt(this.player.style.left)) < ((parseInt(this.element.style.left) + parseInt(this.element.style.width)))) && !(parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
             {
                 // ограничение действия коллизии по вертикали
-                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) - 25) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
+                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
                 {
                     if (this.name == this.element.classList[1])
                     {
@@ -73,15 +74,26 @@ class GameCollision
                         let temp = (parseInt(this.element.style.top) - parseInt(this.player.style.height));
                         this.player.style.top = temp + 'px';
 
+                        let audioObjectSpring;
                         if (this.type == 'spring')
                         {
+                            player.jumpSoundDisabled = true;
                             player.jump();
+                            if (playSoundOnce == false)
+                            {
+                                audioObjectSpring = new Audio('./audio/objectSpring.wav');
+                                audioObjectSpring.play();
+                                playSoundOnce = true;                          
+                            }
                             this.tempGround = null;
+                            player.jumpSoundDisabled = false;
+                            setTimeout(()=> { playSoundOnce = false; }, 100)
                         }
                     }
                 }
                 else
                 {
+                    playSoundOnce = false;
                     this.tempGround = null;
                 }
             }
@@ -89,6 +101,7 @@ class GameCollision
             {
                 if (this.tempGround == this.element.classList[1])
                 {
+                    playSoundOnce = false;
                     player.isGround = false;
                 }
             }
