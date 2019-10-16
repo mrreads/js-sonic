@@ -126,6 +126,8 @@ class GameCollision
                                         this.element.style.backgroundImage = 'url("./img/ObjectMonitorDestoyed.png")';
                                         this.element.style.backgroundSize = '90%';
                                         player.playVfx(this.element, 350, './img/ObjectMonitorVfx.gif');
+                                        let audioRing = new Audio('./audio/objectRing.wav');
+                                        audioRing.play();
                                     }
                                 }
                             }
