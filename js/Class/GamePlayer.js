@@ -330,7 +330,7 @@ class GamePlayer
         }
     }
     
-    playVfx(elem, img)
+    playVfx(elem, time, img)
     {
         let vfx = document.createElement('div');
         elem.appendChild(vfx);
@@ -338,7 +338,7 @@ class GamePlayer
         vfx.style.height = '100%';
         vfx.style.width = '100%';
         vfx.style.backgroundImage = 'url("'+img+'")';
-        setTimeout(() => { vfx.remove(); }, 250);
+        setTimeout(() => { vfx.remove(); }, time);
     }
 
     initScroll()

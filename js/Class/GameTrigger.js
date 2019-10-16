@@ -33,11 +33,13 @@ class GameTrigger
                 
                 if (this.isPickable == true && this.isPicked == false)
                 {
+                    this.element.style.backgroundImage = 'unset';
+                    player.playVfx(this.element, 400, './img/objectRingVfx.gif');
                     let audioJump = new Audio('./audio/objectRing.wav');
                     audioJump.play();
                     this.player.rings += 1;
                     this.isPicked = true;
-                    this.element.remove();
+                    setTimeout(() => { this.element.remove(); }, 400);
                 }
             }
             else 
