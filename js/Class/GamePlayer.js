@@ -303,15 +303,15 @@ class GamePlayer
             this.element.style.backgroundSize = '156%';
             if (this.leftFall == true)
             {
-                this.element.style.transform = 'scaleX(-1)';
-                this.element.style.backgroundImage = 'url("./img/sonicBalance.png")';
+                this.element.style.transform = 'scaleX(-1) translateX(-55px)';
+                this.element.style.backgroundImage = 'url("./img/sonicBalance.gif")';
                 this.element.style.backgroundPosition = '-5px center';
                 this.element.style.backgroundSize = '156%';
             }
             if (this.rightFall == true)
             {
-                this.element.style.transform = 'scaleX(1)';
-                this.element.style.backgroundImage = 'url("./img/sonicBalance.png")';
+                this.element.style.transform = 'scaleX(1) translateX(-55px)';
+                this.element.style.backgroundImage = 'url("./img/sonicBalance.gif")';
                 this.element.style.backgroundPosition = '-5px center';
                 this.element.style.backgroundSize = '156%';
             }
