@@ -119,8 +119,8 @@ class GameCollision
                                     this.isPickable = true;
                                     if (this.isPickable == true && this.isDeleted == false)
                                     {
-                                        let audioJump = new Audio('./audio/objectRing.wav');
-                                        audioJump.play();
+                                        let audioMonitor = new Audio('./audio/objectMonitor.wav');
+                                        audioMonitor.play();
                                         player.rings += 10;
                                         this.isDeleted = true;
                                         this.element.style.backgroundImage = 'url("./img/ObjectMonitorDestoyed.png")';
