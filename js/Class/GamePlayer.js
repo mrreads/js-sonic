@@ -1,6 +1,6 @@
 class GamePlayer
 {
-    constructor(id, height, width, top, left, field, img)
+    constructor(id, height, width, top, left, field, img, zIndex)
     {
         this.field =  field.element;
         this.height = height;
@@ -15,6 +15,8 @@ class GamePlayer
         this.element.style.backgroundImage = 'url("'+img+'")';
         this.element.style.backgroundSize = '156%';
         this.element.style.transform = 'scaleX(1)';
+        this.element.style.zIndex = 'unset';
+        this.element.style.zIndex = zIndex;
 
         this.score = 0;
         this.rings = 0;
