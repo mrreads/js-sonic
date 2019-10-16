@@ -23,6 +23,12 @@ class GameCollision
         this.isGround = false;
         this.type = 'collision';
         this.type = type;
+        if (type == 'spring')
+        {
+            this.element.style.backgroundPosition = 'center 10px';
+            this.element.style.backgroundRepeat = 'no-repeat';
+            this.element.style.backgroundSize = '100%';
+        }
         let playSoundOnce = false;
         
         // Каждые **ms проверяется, входит ли игрок в коллизию. Если входит - отталкивает обратно.
@@ -105,11 +111,15 @@ class GameCollision
                             {
                                 audioObjectSpring = new Audio('./audio/objectSpring.wav');
                                 audioObjectSpring.play();
+                                this.element.style.backgroundPosition = 'center top';
                                 playSoundOnce = true;                          
                             }
                             this.tempGround = null;
                             player.jumpSoundDisabled = false;
-                            setTimeout(()=> { playSoundOnce = false; }, 100)
+                            setTimeout(() => { 
+                                playSoundOnce = false; 
+                                this.element.style.backgroundPosition = 'center 10px';
+                            }, 100);
                         }
                     }
                 }

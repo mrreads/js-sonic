@@ -255,23 +255,29 @@ class GamePlayer
 
     lookUp()
     {
-        this.startAnimate('up');
-        this.isLookUp = true;
-        this.isCrouch = false;
+        if (this.leftFall == false && this.rightFall == false)
+        {
+            this.startAnimate('up');
+            this.isLookUp = true;
+            this.isCrouch = false;
+        }
     }
 
     crouch()
     {
-        this.isLookUp = false;
-        this.isCrouch = true;
-        setInterval(() =>
+        if (this.leftFall == false && this.rightFall == false)
         {
-            if (this.isCrouch == true)
+            this.isLookUp = false;
+            this.isCrouch = true;
+            setInterval(() =>
             {
-                this.canMove = false;
-                this.startAnimate('crouch');
-            }
-        }, 1000/60);
+                if (this.isCrouch == true)
+                {
+                    this.canMove = false;
+                    this.startAnimate('crouch');
+                }
+            }, 1000/60);
+        }
     }
 
     startAnimate(arg)
