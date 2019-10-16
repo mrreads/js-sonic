@@ -46,7 +46,7 @@ class Game
         let temp = 50;
         for (let i = 0; i < 5; i++)
         {
-            window['ring' + i] = new GameTrigger('ring' + i, player, field, 50, 50, 300, 500 + temp, './img/objectRing.gif', true);
+            window['ring' + i] = new GameTrigger('ring' + i, player, field, 50, 50, 300, 500 + temp, './img/objectRing.gif', true, 'ring');
             i++;
             temp = temp + 100;
         }

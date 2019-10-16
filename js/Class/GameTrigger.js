@@ -1,6 +1,6 @@
 class GameTrigger 
 {
-    constructor(name, player, field, height, width, top, left, img, pickable) 
+    constructor(name, player, field, height, width, top, left, img, pickable, type) 
     {
         this.name = name;
         this.field = field.element;
@@ -20,6 +20,8 @@ class GameTrigger
         this.inTrigger = false;
         this.wasInTrigger = false;
         this.element.style.backgroundImage = 'url("'+img+'")';
+        this.type = 'trigger';
+        this.type = type;
 
         this.isPickable = false;
         this.isPickable = pickable;
@@ -33,13 +35,16 @@ class GameTrigger
                 
                 if (this.isPickable == true && this.isPicked == false)
                 {
-                    this.element.style.backgroundImage = 'unset';
-                    player.playVfx(this.element, 400, './img/objectRingVfx.gif');
-                    let audioJump = new Audio('./audio/objectRing.wav');
-                    audioJump.play();
-                    this.player.rings += 1;
-                    this.isPicked = true;
-                    setTimeout(() => { this.element.remove(); }, 400);
+                    if (this.type == 'ring')
+                    {
+                        this.element.style.backgroundImage = 'unset';
+                        player.playVfx(this.element, 400, './img/objectRingVfx.gif');
+                        let audioRing = new Audio('./audio/objectRing.wav');
+                        audioRing.play();
+                        this.player.rings += 1;
+                        this.isPicked = true;
+                        setTimeout(() => { this.element.remove(); }, 400);
+                    }
                 }
             }
             else 
