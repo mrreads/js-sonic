@@ -125,7 +125,7 @@ class GameCollision
                                         this.isDeleted = true;
                                         this.element.style.backgroundImage = 'url("./img/ObjectMonitorDestoyed.png")';
                                         this.element.style.backgroundSize = '90%';
-                                        player.playVfx(this.element, 50, './img/vfx.png');
+                                        player.playVfx(this.element, 350, './img/ObjectMonitorVfx.gif');
                                     }
                                 }
                             }
