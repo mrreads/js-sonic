@@ -329,6 +329,17 @@ class GamePlayer
             this.element.style.backgroundSize = '156%';
         }
     }
+    
+    playVfx(elem, img)
+    {
+        let vfx = document.createElement('div');
+        elem.appendChild(vfx);
+        console.log(vfx);
+        vfx.style.height = '100%';
+        vfx.style.width = '100%';
+        vfx.style.backgroundImage = 'url("'+img+'")';
+        setTimeout(() => { vfx.remove(); }, 250);
+    }
 
     initScroll()
     {

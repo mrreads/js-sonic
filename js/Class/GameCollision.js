@@ -29,130 +29,157 @@ class GameCollision
             this.element.style.backgroundRepeat = 'no-repeat';
             this.element.style.backgroundSize = '100%';
         }
+        if (type == 'monitorRing')
+        {
+            this.element.style.backgroundSize = '100%';
+            this.element.style.backgroundRepeat = 'no-repeat';
+        }
         let playSoundOnce = false;
+        this.isDeleted = false;
         
         // Каждые **ms проверяется, входит ли игрок в коллизию. Если входит - отталкивает обратно.
         setInterval(function () 
-        {          
-            // LEFT COLLISION
-            // ЕСЛИ - ЛЕВЫЕ КООРДИНАТЫ ИГРОКА + ШИРИНА ИГРОКА >БОЛЬШЕ> ЛЕВЫЕ КООРДИНАТЫ ОБЬЕКТА (дальше логика на ограничения действия коллизии)
-            if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
+        {
+            if (this.isDeleted == false)
             {
-                // ограничение действия коллизии по вертикали
-                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
+                // LEFT COLLISION
+                // ЕСЛИ - ЛЕВЫЕ КООРДИНАТЫ ИГРОКА + ШИРИНА ИГРОКА >БОЛЬШЕ> ЛЕВЫЕ КООРДИНАТЫ ОБЬЕКТА (дальше логика на ограничения действия коллизии)
+                if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
                 {
-                    if (this.name == this.element.classList[1])
+                    // ограничение действия коллизии по вертикали
+                    if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
                     {
-                        let temp = (parseInt(this.element.style.left) - parseInt(this.player.style.width));
-                        this.player.style.left = temp + 'px';
+                        if (this.name == this.element.classList[1])
+                        {
+                            let temp = (parseInt(this.element.style.left) - parseInt(this.player.style.width));
+                            this.player.style.left = temp + 'px';
+                        }
                     }
                 }
-            }
 
-            // RIGHT COLLISION
-            // ЕСЛИ - ЛЕВЫЕ КООРДИНАТЫ ИГРОКА <МЕНЬШЕ< ЛЕВЫЕ КООРДИНАТЫ ОБЬЕКТА + ШИРИНА ОБЬЕКТА (дальше логика на ограничения действия коллизии)
-            if (((parseInt(this.player.style.left)) < ((parseInt(this.element.style.left) + parseInt(this.element.style.width)))) && !(parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
-            {
-                // ограничение действия коллизии по вертикали
-                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
+                // RIGHT COLLISION
+                // ЕСЛИ - ЛЕВЫЕ КООРДИНАТЫ ИГРОКА <МЕНЬШЕ< ЛЕВЫЕ КООРДИНАТЫ ОБЬЕКТА + ШИРИНА ОБЬЕКТА (дальше логика на ограничения действия коллизии)
+                if (((parseInt(this.player.style.left)) < ((parseInt(this.element.style.left) + parseInt(this.element.style.width)))) && !(parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
                 {
-                    if (this.name == this.element.classList[1])
+                    // ограничение действия коллизии по вертикали
+                    if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
                     {
-                        let temp = (parseInt(this.element.style.left) + parseInt(this.element.style.width));
-                        this.player.style.left = temp + 'px';
+                        if (this.name == this.element.classList[1])
+                        {
+                            let temp = (parseInt(this.element.style.left) + parseInt(this.element.style.width));
+                            this.player.style.left = temp + 'px';
+                        }
                     }
                 }
-            }
-        
+            
 
-            // TOP COLLISION
-            // ЕСЛИ - КООРДИНАТЫ ВЫСОТЫ ИГРОКА + ВЫСОТА ИГРОКА >БОЛЬШЕ> КООРДИНАТЫ ВЫСОТЫ ОБЬЕКТА (дальше логика на ограничения действия коллизии)
-            if (((parseInt(this.player.style.top) + parseInt(this.player.style.height)) > (parseInt(this.element.style.top))) && (parseInt(this.player.style.top) < (parseInt(this.element.style.top) + (parseInt(this.element.style.height) / 2)))) 
-            {
-                // ограничение действия коллизии по горизонтали
-                if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width)))) 
+                // TOP COLLISION
+                // ЕСЛИ - КООРДИНАТЫ ВЫСОТЫ ИГРОКА + ВЫСОТА ИГРОКА >БОЛЬШЕ> КООРДИНАТЫ ВЫСОТЫ ОБЬЕКТА (дальше логика на ограничения действия коллизии)
+                if (((parseInt(this.player.style.top) + parseInt(this.player.style.height)) > (parseInt(this.element.style.top))) && (parseInt(this.player.style.top) < (parseInt(this.element.style.top) + (parseInt(this.element.style.height) / 2)))) 
                 {
-                    this.tempGround = this.element.classList[1];
-                    if (this.tempGround == this.element.classList[1])
+                    // ограничение действия коллизии по горизонтали
+                    if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width)))) 
                     {
-                        this.tempGround = this.name;
-                        player.isGround = true;
-                        player.mass = 2;
-                        let temp = (parseInt(this.element.style.top) - parseInt(this.player.style.height));
-                        this.player.style.top = temp + 'px';
+                        this.tempGround = this.element.classList[1];
+                        if (this.tempGround == this.element.classList[1])
+                        {
+                            this.tempGround = this.name;
+                            player.isGround = true;
+                            player.mass = 2;
+                            let temp = (parseInt(this.element.style.top) - parseInt(this.player.style.height));
+                            this.player.style.top = temp + 'px';
 
-                        let audioObjectSpring;
+                            let audioObjectSpring;
 
-                        // left fall collision
-                        if ((parseInt(this.player.style.left) + parseInt(this.player.style.width) / 2 + 10) < (parseInt(this.element.style.left)))
-                        {
-                            player.leftFall = true;
-                        }
-                        else
-                        {
-                            player.leftFall = false;
-                        }
-
-                        // right fall collision
-                        if ((parseInt(this.player.style.left) + parseInt(this.player.style.width) - parseInt(this.player.style.width) / 2 + 10) > (parseInt(this.element.style.left) + parseInt(this.element.style.width)))
-                        {
-                            player.rightFall = true;
-                        }
-                        else
-                        {
-                            player.rightFall = false;
-                        }
-
-                        if (this.type == 'spring')
-                        {
-                            player.jumpSoundDisabled = true;
-                            player.jump();
-                            if (playSoundOnce == false)
+                            // left fall collision
+                            if ((parseInt(this.player.style.left) + parseInt(this.player.style.width) / 2 + 10) < (parseInt(this.element.style.left)))
                             {
-                                audioObjectSpring = new Audio('./audio/objectSpring.wav');
-                                audioObjectSpring.play();
-                                this.element.style.backgroundPosition = 'center top';
-                                playSoundOnce = true;                          
+                                player.leftFall = true;
                             }
-                            this.tempGround = null;
-                            player.jumpSoundDisabled = false;
-                            setTimeout(() => { 
-                                playSoundOnce = false; 
-                                this.element.style.backgroundPosition = 'center 10px';
-                            }, 100);
+                            else
+                            {
+                                player.leftFall = false;
+                            }
+
+                            // right fall collision
+                            if ((parseInt(this.player.style.left) + parseInt(this.player.style.width) - parseInt(this.player.style.width) / 2 + 10) > (parseInt(this.element.style.left) + parseInt(this.element.style.width)))
+                            {
+                                player.rightFall = true;
+                            }
+                            else
+                            {
+                                player.rightFall = false;
+                            }
+
+                            
+                            if (type == 'monitorRing')
+                            {
+                                if (player.isJumping == true)
+                                {
+                                    this.isPickable = true;
+                                    if (this.isPickable == true && this.isDeleted == false)
+                                    {
+                                        let audioJump = new Audio('./audio/objectRing.wav');
+                                        audioJump.play();
+                                        player.rings += 10;
+                                        this.isDeleted = true;
+                                        this.element.style.backgroundImage = 'url("./img/ObjectMonitorDestoyed.png")';
+                                        this.element.style.backgroundSize = '90%';
+                                        player.playVfx(this.element, './img/vfx.png');
+                                    }
+                                }
+                            }
+
+                            if (this.type == 'spring')
+                            {   
+                                player.jumpSoundDisabled = true;
+                                player.jump();
+                                if (playSoundOnce == false)
+                                {
+                                    audioObjectSpring = new Audio('./audio/objectSpring.wav');
+                                    audioObjectSpring.play();
+                                    this.element.style.backgroundPosition = 'center top';
+                                    playSoundOnce = true;                     
+                                }
+                                this.tempGround = null;
+                                player.jumpSoundDisabled = false;
+                                setTimeout(() => { 
+                                    playSoundOnce = false; 
+                                    this.element.style.backgroundPosition = 'center 10px';
+                                }, 100);
+                            }
                         }
+                    }
+                    else
+                    {
+                        playSoundOnce = false;
+                        this.tempGround = null;
                     }
                 }
                 else
                 {
-                    playSoundOnce = false;
-                    this.tempGround = null;
-                }
-            }
-            else
-            {
-                if (this.tempGround == this.element.classList[1])
-                {
-                    playSoundOnce = false;
-                    player.isGround = false;
-                }
-            }
-
-            // BOTTOM COLLISION
-            // ЕСЛИ - КООРДИНАТЫ ВЫСОТЫ ИГРОКА  >МЕНЬШЕ> КООРДИНАТ ВЫСОТЫ ОБЬЕКТА + ВЫСОТА ОБЬЕКТА (дальше логика на ограничения действия коллизии)
-            if (((parseInt(this.player.style.top)) > (parseInt(this.element.style.top))) && (parseInt(this.player.style.top) < (parseInt(this.element.style.top) + parseInt(this.element.style.height)))) 
-            {
-                // ограничение действия коллизии по горизонтали
-                if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width)))) 
-                {
-                    if (this.name == this.element.classList[1])
+                    if (this.tempGround == this.element.classList[1])
                     {
-                        let temp = (parseInt(this.element.style.top) + parseInt(this.element.style.height));
-                        this.player.style.top = temp + 'px';
+                        playSoundOnce = false;
+                        player.isGround = false;
+                    }
+                }
+
+                // BOTTOM COLLISION
+                // ЕСЛИ - КООРДИНАТЫ ВЫСОТЫ ИГРОКА  >МЕНЬШЕ> КООРДИНАТ ВЫСОТЫ ОБЬЕКТА + ВЫСОТА ОБЬЕКТА (дальше логика на ограничения действия коллизии)
+                if (((parseInt(this.player.style.top)) > (parseInt(this.element.style.top))) && (parseInt(this.player.style.top) < (parseInt(this.element.style.top) + parseInt(this.element.style.height)))) 
+                {
+                    // ограничение действия коллизии по горизонтали
+                    if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width)))) 
+                    {
+                        if (this.name == this.element.classList[1])
+                        {
+                            let temp = (parseInt(this.element.style.top) + parseInt(this.element.style.height));
+                            this.player.style.top = temp + 'px';
+                        }
                     }
                 }
             }
-
         }.bind(this), 1000/60);
     }
 }

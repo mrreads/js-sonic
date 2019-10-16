@@ -41,6 +41,8 @@ class Game
         let spring1 = new GameCollision('spring1', player, field, 50, 100, 562, 951, './img/objectSpring.png', '3', 'spring');
         let spring2 = new GameCollision('spring2', player, field, 50, 100, 562, 1300, './img/objectSpring.png', '3', 'spring');
 
+        let monitor1 = new GameCollision('monitor1', player, field, 90, 90, 530, 300, './img/objectMonitorRing.png', '3', 'monitorRing');
+        
         let temp = 50;
         for (let i = 0; i < 5; i++)
         {
