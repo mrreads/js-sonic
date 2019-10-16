@@ -57,6 +57,7 @@ class GameCollision
                     }
                 }
             }
+        
 
             // TOP COLLISION
             // ЕСЛИ - КООРДИНАТЫ ВЫСОТЫ ИГРОКА + ВЫСОТА ИГРОКА >БОЛЬШЕ> КООРДИНАТЫ ВЫСОТЫ ОБЬЕКТА (дальше логика на ограничения действия коллизии)
@@ -75,6 +76,17 @@ class GameCollision
                         this.player.style.top = temp + 'px';
 
                         let audioObjectSpring;
+
+                        // left fall collision
+                        if (((parseInt(this.player.style.left) + parseInt(this.player.style.width) / 2 + 15) < (parseInt(this.element.style.left))) || ((parseInt(this.player.style.left) + parseInt(this.player.style.width) - parseInt(this.player.style.width) / 2 + 15) > (parseInt(this.element.style.left) + parseInt(this.element.style.width))))
+                        {
+                            player.leftFall = true;
+                        }
+                        else
+                        {
+                            player.leftFall = false;
+                        }
+
                         if (this.type == 'spring')
                         {
                             player.jumpSoundDisabled = true;
