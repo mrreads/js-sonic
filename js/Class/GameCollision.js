@@ -78,13 +78,23 @@ class GameCollision
                         let audioObjectSpring;
 
                         // left fall collision
-                        if (((parseInt(this.player.style.left) + parseInt(this.player.style.width) / 2 + 15) < (parseInt(this.element.style.left))) || ((parseInt(this.player.style.left) + parseInt(this.player.style.width) - parseInt(this.player.style.width) / 2 + 15) > (parseInt(this.element.style.left) + parseInt(this.element.style.width))))
+                        if ((parseInt(this.player.style.left) + parseInt(this.player.style.width) / 2 + 10) < (parseInt(this.element.style.left)))
                         {
                             player.leftFall = true;
                         }
                         else
                         {
                             player.leftFall = false;
+                        }
+
+                        // right fall collision
+                        if ((parseInt(this.player.style.left) + parseInt(this.player.style.width) - parseInt(this.player.style.width) / 2 + 10) > (parseInt(this.element.style.left) + parseInt(this.element.style.width)))
+                        {
+                            player.rightFall = true;
+                        }
+                        else
+                        {
+                            player.rightFall = false;
                         }
 
                         if (this.type == 'spring')
