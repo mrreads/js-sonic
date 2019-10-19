@@ -14,7 +14,6 @@
 body
 {
 	font-family: "Sonic-1-HUD-Font";
-
 	padding: 55px;
 }
 
@@ -42,37 +41,6 @@ div
 	background-size: contain;
 }
 
-#menu p:nth-child(1)
-{
-	font-size: 56px;
-
-	position: absolute;
-	top: 0;
-
-	width: 100%;
-	padding-top: 55px;
-
-	text-align: center;
-
-	color: red;
-}
-
-#menu p:nth-child(2)
-{
-	font-size: 56px;
-
-	position: absolute;
-	bottom: 0;
-
-	width: 100%;
-	padding-bottom: 125px;
-
-	cursor: pointer;
-	text-align: center;
-
-	color: pink;
-}
-
 .hud
 {
 	padding: 25px 45px;
@@ -90,4 +58,9 @@ div
 .hud p span
 {
 	color: white;
+}
+
+#menu
+{
+	transition: 0.3s all;
 }

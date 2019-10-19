@@ -6,23 +6,45 @@ class Game
         this.width = width;
         if (!document.querySelector(`#menu`)) { document.body.innerHTML = `<div id="menu"></div>`; }
         this.element = document.querySelector(`#menu`);
+        this.element.style.margin = '0 auto';
         this.element.style.width = width + 'px';
         this.element.style.height = height + 'px';
         this.element.style.position = "relative";
-        this.element.style.backgroundImage = 'url("'+img+'")';
+        this.element.style.backgroundImage = 'url("./img/segaLogo.gif")';
 
-        this.logo = document.createElement("p");
-        this.element.appendChild(this.logo);
-        this.start = document.createElement("p");
-        this.element.appendChild(this.start);
-        this.logo.textContent = `SONIC the hedgehod`;
-        this.start.textContent = `click start`;
-        this.start.addEventListener('click', function()
+        setTimeout(() => 
         {
-            // let audio = new Audio('./audio/start.mp3');
-            // audio.play();
-            this.startGame();
-        }.bind(this));
+            this.element.style.opacity = '0';
+        }, 3500);
+
+        
+        setTimeout(() => 
+        
+        {
+            this.element.style.backgroundPosition = '0%';
+            setInterval(() => { this.element.style.backgroundPosition = (parseInt(this.element.style.backgroundPosition) + 1) + '%'; }, 150);
+            this.element.style.backgroundSize = 'cover';
+            this.element.style.backgroundImage = 'url(./img/menuBackground.png)';
+            
+        }, 3700);
+
+        setTimeout(() => 
+        {
+            this.element.style.opacity = '1';
+            this.logo = document.createElement("p");
+            this.element.appendChild(this.logo);
+            this.start = document.createElement("p");
+            this.element.appendChild(this.start);
+            this.logo.textContent = `SONIC the hedgehod`;
+            this.start.textContent = `click start`;
+            this.start.addEventListener('click', function()
+            {
+                // let audio = new Audio('./audio/start.mp3');
+                // audio.play();
+                this.startGame();
+            }.bind(this));
+        }, 3900);
+
     }
 
     startGame()
@@ -53,5 +75,5 @@ class Game
     }
 }
 
-let game = new Game(720, 960, './img/menu1.jpg');
+let game = new Game(720, 960);
 
