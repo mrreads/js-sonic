@@ -31,6 +31,8 @@ class Game
         setTimeout(() => 
         {
             this.element.style.opacity = '1';
+            let menuTitleAudio = new Audio('./audio/menuMusic.mp3');
+            menuTitleAudio.play();
 
             this.sonic = document.createElement("div");
             this.element.appendChild(this.sonic);
