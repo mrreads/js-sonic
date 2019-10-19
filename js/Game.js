@@ -1,16 +1,18 @@
 class Game
 {
-    constructor(height, width, img) 
+    constructor(height, width) 
     {
         this.height = height;
         this.width = width;
         if (!document.querySelector(`#menu`)) { document.body.innerHTML = `<div id="menu"></div>`; }
+        setTimeout(() => { let menuSegaAudio = new Audio('./audio/menuSega.mp3'); menuSegaAudio.play(); }, 2000);
         this.element = document.querySelector(`#menu`);
         this.element.style.margin = '0 auto';
         this.element.style.width = width + 'px';
         this.element.style.height = height + 'px';
         this.element.style.position = "relative";
         this.element.style.backgroundImage = 'url("./img/segaLogo.gif")';
+
 
         setTimeout(() => 
         {
@@ -19,7 +21,6 @@ class Game
 
         
         setTimeout(() => 
-        
         {
             this.element.style.backgroundPosition = '0%';
             setInterval(() => { this.element.style.backgroundPosition = (parseInt(this.element.style.backgroundPosition) + 1) + '%'; }, 150);
@@ -70,6 +71,8 @@ class Game
                 {
                     // let audio = new Audio('./audio/start.mp3');
                     // audio.play();
+
+                    menuTitleAudio.pause();
                     this.startGame();
                 }.bind(this));
             }, 800);
