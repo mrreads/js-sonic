@@ -31,18 +31,49 @@ class Game
         setTimeout(() => 
         {
             this.element.style.opacity = '1';
-            this.logo = document.createElement("p");
-            this.element.appendChild(this.logo);
-            this.start = document.createElement("p");
+
+            this.sonic = document.createElement("div");
+            this.element.appendChild(this.sonic);
+            this.sonic.style.opacity = '0';
+            this.sonic.style.transition = '0.3s all';
+            this.sonic.style.position = 'absolute';
+            this.sonic.style.width = '100%';
+            this.sonic.style.height = '455px';
+            this.sonic.style.top = '85px';
+            this.sonic.style.backgroundRepeat = 'no-repeat';
+            this.sonic.style.backgroundImage = 'url(./img/menuSonic.gif)';
+
+            this.start = document.createElement("div");
             this.element.appendChild(this.start);
-            this.logo.textContent = `SONIC the hedgehod`;
-            this.start.textContent = `click start`;
-            this.start.addEventListener('click', function()
+            this.start.style.opacity = '0';
+            this.start.style.transition = '0.3s all';
+            this.start.style.position = 'absolute';
+            this.start.style.width = '100%';
+            this.start.style.height = '455px';
+            this.start.style.top = '355px';
+            this.start.style.backgroundSize = '61%';
+            this.start.style.backgroundRepeat = 'no-repeat';
+            this.start.style.backgroundImage = 'url(./img/menuPressStart.png)';
+
+            setTimeout(() => 
             {
-                // let audio = new Audio('./audio/start.mp3');
-                // audio.play();
-                this.startGame();
-            }.bind(this));
+                this.sonic.style.opacity = '1';
+            }, 500);
+
+            setTimeout(() => 
+            {
+                this.start.style.opacity = '1';
+                this.start.style.cursor = 'pointer';
+                this.start.addEventListener('click', function()
+                {
+                    // let audio = new Audio('./audio/start.mp3');
+                    // audio.play();
+                    this.startGame();
+                }.bind(this));
+            }, 800);
+
+
+
         }, 3900);
 
     }
