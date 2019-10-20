@@ -11,7 +11,7 @@ class Game
         this.element.style.height = height + 'px';
         this.element.style.position = "relative";
         this.element.style.backgroundImage = 'url("./img/segaLogo.gif")';
-        this.skip = false;
+        this.skip = true;
 
         if (this.skip == true)
         {
@@ -20,7 +20,7 @@ class Game
         else
         {
             setTimeout(() => { let menuSegaAudio = new Audio('./audio/menuSega.mp3'); menuSegaAudio.play(); }, 2000);
-
+            
             setTimeout(() => 
             {
                 this.element.style.opacity = '0';
@@ -199,7 +199,7 @@ class Game
             let spring1 = new GameCollision('spring1', player, field, 50, 100, 562, 951, './img/objectSpring.png', '3', 'spring');
             let spring2 = new GameCollision('spring2', player, field, 50, 100, 562, 1300, './img/objectSpring.png', '3', 'spring');
 
-            let monitor1 = new GameCollision('monitor1', player, field, 90, 90, 530, 300, './img/objectMonitorRing.png', '3', 'monitorRing');
+            let monitor1 = new GameCollision('monitor1', player, field, 90, 90, 345, 800, './img/objectMonitorRing.png', '3', 'monitorRing');
             
             let temp = 50;
             for (let i = 0; i < 5; i++)

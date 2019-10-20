@@ -38,14 +38,25 @@ class GamePlayer
         this.initHud();
         this.initScroll();
 
-        setInterval(function () {
+        setInterval(() => {
             this.checkIdle();
-        }.bind(this), 150);
+            this.checkWalk();
+        }, 150);
+
+        setInterval(() => {
+            this.checkKeys();
+        }, 55);
 
         this.isMove = false;
         this.jumpSoundDisabled = false;
         this.leftFall = false;
         this.rightFall = false;
+
+        this.keyA = false;
+        this.keyD = false;
+        this.keySpace = false;
+        this.keyW = false;
+        this.keyS = false;
     }
 
     move(value)
@@ -98,45 +109,96 @@ class GamePlayer
         }
     }
 
+    
     keyboardControl()
     {
-        document.addEventListener('keypress', function (event) 
+        document.addEventListener("keydown", function (event)
         {
             if (event.code == 'KeyA') 
             {
-                this.move(-25);
+                this.keyA = true;
+                
             }
             if (event.code == 'KeyD') 
             {
-                this.move(25);
+                this.keyD = true;
             }
-
             if (event.code == 'Space') 
             {
-                if (this.isJumping == false & this.isGround == true)
-                {
-                    this.jump();
-                }
+                this.keySpace = true;
             }
-            
-            if (event.code == 'KeyS' && this.isMove == false && this.isJumping == false) 
+            if (event.code == 'KeyW') 
             {
-                this.crouch();
+                this.keyW = true;
             }
-            if (event.code == 'KeyS' && this.isMove == true && this.isJumping == false) 
+            if (event.code == 'KeyS') 
+            {
+                this.keyS = true;
+            }
+            this.checkKeys();
+        }.bind(this));
+
+        document.addEventListener("keyup", function (event)
+        {
+            if (event.code == 'KeyA') 
+            {
+                this.keyA = false;
+            }
+            if (event.code == 'KeyD') 
+            {
+                this.keyD = false;
+            }
+            if (event.code == 'Space') 
+            {
+                this.keySpace = false;
+            }
+            if (event.code == 'KeyW') 
+            {
+                this.keyW = false;
+            }
+            if (event.code == 'KeyS') 
+            {
+                this.keyS = false;
+            }
+            this.checkKeys();
+        }.bind(this));
+    }
+
+    checkKeys()
+    {
+        if (this.keyA == true) 
+        {
+            this.move(-25);
+        }
+        if (this.keyD == true) 
+        {
+            this.move(25);
+        }
+        if (this.keySpace == true) 
+        {
+            if (this.isJumping == false & this.isGround == true)
+            {
+                this.jump();
+            }
+        }
+        if (this.keyS == true && this.isMove == false && this.isJumping == false) 
+        {
+            this.crouch();
+        }
+        if (this.keyS == true && this.isMove == true && this.isJumping == false && this.isRoll == false) 
+        {
+            if (this.isRollable == true)
             {
                 this.isRoll = true;
                 let audioRoll = new Audio('./audio/sonicRoll.wav');
                 audioRoll.play();
                 this.startAnimate('jump');
             }
-
-            if ((event.code == 'KeyW' && this.isMove == false && this.isJumping == false && this.isGround == true))
-            {
-                this.lookUp();
-            } 
-        }.bind(this));
-        
+        }
+        if ((this.keyW == true && this.isMove == false && this.isJumping == false && this.isGround == true))
+        {
+            this.lookUp();
+        } 
     }
 
     initHud()
@@ -283,6 +345,26 @@ class GamePlayer
         }
     }
 
+    checkWalk()
+    {
+        setInterval(() => {
+            this.moveOld = this.isMove;
+            
+            setTimeout(() => {
+                this.moveNew = this.isMove;
+            }, 100);
+    
+            if ((this.moveOld == this.moveNew && this.isGround == true)) 
+            {
+                this.isRollable = true;
+            }
+            else
+            {
+                this.isRollable = false;
+            }
+        }, 150);
+    }
+
     startAnimate(arg)
     {
         if (arg == 'jump')
@@ -335,7 +417,6 @@ class GamePlayer
     {
         let vfx = document.createElement('div');
         elem.appendChild(vfx);
-        console.log(vfx);
         vfx.style.height = '100%';
         vfx.style.width = '100%';
         vfx.style.backgroundImage = 'url("'+img+'")';
