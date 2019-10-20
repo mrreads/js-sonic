@@ -64,3 +64,8 @@ div
 {
 	transition: 0.3s all;
 }
+
+#menu p
+{
+	text-shadow: 4px 4px 0px black;
+}
