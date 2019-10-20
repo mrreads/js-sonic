@@ -37,6 +37,7 @@ class GamePlayer
         this.initGravitation();
         this.initHud();
         this.initScroll();
+        this.checkedKeys = false
 
         setInterval(() => {
             this.checkIdle();
@@ -45,7 +46,7 @@ class GamePlayer
 
         setInterval(() => {
             this.checkKeys();
-        }, 55);
+        }, 75);
 
         this.isMove = false;
         this.jumpSoundDisabled = false;
@@ -54,9 +55,6 @@ class GamePlayer
 
         this.keyA = false;
         this.keyD = false;
-        this.keySpace = false;
-        this.keyW = false;
-        this.keyS = false;
     }
 
     move(value)
@@ -117,11 +115,12 @@ class GamePlayer
             if (event.code == 'KeyA') 
             {
                 this.keyA = true;
-                
+                this.checkedKeys = false;
             }
             if (event.code == 'KeyD') 
             {
                 this.keyD = true;
+                this.checkedKeys = false;
             }
             this.checkKeys();
         }.bind(this));
@@ -131,18 +130,32 @@ class GamePlayer
             if (event.code == 'KeyA') 
             {
                 this.keyA = false;
+                this.checkedKeys = true;
+                setTimeout(() => { this.checkedKeys = false; }, 150);
             }
             if (event.code == 'KeyD') 
             {
                 this.keyD = false;
+                this.checkedKeys = true;
+                setTimeout(() => { this.checkedKeys = false; }, 150);
             }
             this.checkKeys();
         }.bind(this));
 
         document.addEventListener('keypress', function (event)
         {
+            if (event.code == 'KeyA') 
+            {
+                this.move(-25);
+            }
+            if (event.code == 'KeyD') 
+            {
+                this.move(25);
+            }
+            
             if (event.code == 'Space') 
             {
+                this.checkedKeys = true;
                 if (this.isJumping == false & this.isGround == true)
                 {
                     this.jump();
@@ -171,13 +184,16 @@ class GamePlayer
 
     checkKeys()
     {
-        if (this.keyA == true) 
+        if (this.checkedKeys == true)
         {
-            this.move(-25);
-        }
-        if (this.keyD == true) 
-        {
-            this.move(25);
+            if (this.keyA == true) 
+            {
+                this.move(-25)
+            }
+            if (this.keyD == true) 
+            {
+                this.move(25);
+            }
         }
     }
 
@@ -231,7 +247,7 @@ class GamePlayer
         document.querySelector(".hud p:nth-child(1)").innerHTML = `Score: <span> ${this.score} </span>`;
         document.querySelector(".hud p:nth-child(3)").innerHTML = `Rings: <span class="rings"> ${this.rings} </span>`;
         this.hidLivesCounter.textContent = `x          ${this.lives}`;
-        
+
         let ringFlag = false;
         setInterval(function()
         {
