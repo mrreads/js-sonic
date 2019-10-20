@@ -29,7 +29,7 @@ class GameCollision
             this.element.style.backgroundRepeat = 'no-repeat';
             this.element.style.backgroundSize = '100%';
         }
-        if (type == 'monitorRing')
+        if (type == 'monitorRing' || type == 'monitorLive')
         {
             this.element.style.backgroundSize = '100%';
             this.element.style.backgroundRepeat = 'no-repeat';
@@ -131,6 +131,27 @@ class GameCollision
                                         player.playVfx(this.element, 350, './img/ObjectMonitorVfx.gif');
                                         let audioRing = new Audio('./audio/objectRing.wav');
                                         audioRing.play();
+                                    }
+                                }
+                            }
+
+                            if (type == 'monitorLive')
+                            {
+                                if (player.isJumping == true)
+                                {
+                                    this.isPickable = true;
+                                    if (this.isPickable == true && this.isDeleted == false)
+                                    {
+                                        let audioMonitor = new Audio('./audio/objectMonitor.wav');
+                                        audioMonitor.play();
+                                        player.lives += 1;
+                                        player.updateCounters();
+                                        this.isDeleted = true;
+                                        this.element.style.backgroundImage = 'url("./img/ObjectMonitorDestoyed.png")';
+                                        this.element.style.backgroundSize = '90%';
+                                        player.playVfx(this.element, 350, './img/ObjectMonitorVfx.gif');
+                                        let audioLive = new Audio('./audio/sonicExtraLive.mp3');
+                                        audioLive.play();
                                     }
                                 }
                             }
