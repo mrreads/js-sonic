@@ -11,6 +11,11 @@
 	image-rendering: pixelated;
 }
 
+#field, #menu
+{
+	border: 3px solid black;
+}
+
 body
 {
 	font-family: "Sonic-1-HUD-Font";
