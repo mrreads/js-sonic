@@ -124,6 +124,7 @@ class GameCollision
                                         let audioMonitor = new Audio('./audio/objectMonitor.wav');
                                         audioMonitor.play();
                                         player.rings += 10;
+                                        player.updateCounters();
                                         this.isDeleted = true;
                                         this.element.style.backgroundImage = 'url("./img/ObjectMonitorDestoyed.png")';
                                         this.element.style.backgroundSize = '90%';

@@ -42,6 +42,7 @@ class GameTrigger
                         let audioRing = new Audio('./audio/objectRing.wav');
                         audioRing.play();
                         this.player.rings += 1;
+                        player.updateCounters();
                         this.isPicked = true;
                         setTimeout(() => { this.element.remove(); }, 400);
                     }

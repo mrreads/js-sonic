@@ -185,6 +185,8 @@ class GamePlayer
     {
 
         this.hud = document.createElement("div");
+        this.hud.style.position = 'relative';
+        this.hud.style.height = '100%';
         this.field.appendChild(this.hud);
         this.hud.classList.add('hud');
         this.hudText = document.createElement("p");
@@ -195,12 +197,41 @@ class GamePlayer
         document.querySelector('.hud').appendChild(this.hudText);
         document.querySelector(".hud p:nth-child(2)").innerHTML = `Time: <span>${this.minutes}:${this.seconds + '0'}</span>`;
 
-        setInterval(function()
-        {
-            document.querySelector(".hud p:nth-child(1)").innerHTML = `Score: <span> ${this.score} </span>`;
-            document.querySelector(".hud p:nth-child(3)").innerHTML = `Rings: <span class="rings"> ${this.rings} </span>`;
-        }.bind(this), 1000/60);
+        this.livesIcon = document.createElement("div");
+        document.querySelector('.hud').appendChild(this.livesIcon);
+        this.livesIcon.style.position = 'absolute';
+        this.livesIcon.style.width = '75px';
+        this.livesIcon.style.height = '75px';
+        this.livesIcon.style.left = '45px';
+        this.livesIcon.style.bottom = '80px';
+        this.livesIcon.style.zIndex = '100';
+        this.livesIcon.style.backgroundImage = 'url("./img/hudLives.png")';
+        this.livesIcon.style.backgroundRepeat = 'no-repeat';
 
+        this.hidLivesSonic = document.createElement("p");
+        document.querySelector('.hud').appendChild(this.hidLivesSonic);
+        this.hidLivesSonic.textContent = "sonic";
+        this.hidLivesSonic.style.fontSize = '36px';
+        this.hidLivesSonic.style.position = 'absolute';
+        this.hidLivesSonic.style.bottom = '110px';
+        this.hidLivesSonic.style.left = '135px';
+        this.hidLivesSonic.style.zIndex = '100';
+
+        this.hidLivesCounter = document.createElement("p");
+        document.querySelector('.hud').appendChild(this.hidLivesCounter);
+        this.hidLivesCounter.textContent = `x          ${this.lives}`;
+        this.hidLivesCounter.style.fontSize = '36px';
+        this.hidLivesCounter.style.position = 'absolute';
+        this.hidLivesCounter.style.bottom = '68px';
+        this.hidLivesCounter.style.left = '135px';
+        this.hidLivesCounter.style.zIndex = '100';
+        this.hidLivesCounter.style.color = 'white';
+        this.hidLivesCounter.style.letterSpacing = '17px';
+
+        document.querySelector(".hud p:nth-child(1)").innerHTML = `Score: <span> ${this.score} </span>`;
+        document.querySelector(".hud p:nth-child(3)").innerHTML = `Rings: <span class="rings"> ${this.rings} </span>`;
+        this.hidLivesCounter.textContent = `x          ${this.lives}`;
+        
         let ringFlag = false;
         setInterval(function()
         {
@@ -237,6 +268,13 @@ class GamePlayer
                 document.querySelector(".hud p:nth-child(3)").style.color = "#e8e400";
             }
         }.bind(this), 1000);
+    }
+
+    updateCounters()
+    {
+        document.querySelector(".hud p:nth-child(1)").innerHTML = `Score: <span> ${this.score} </span>`;
+        document.querySelector(".hud p:nth-child(3)").innerHTML = `Rings: <span class="rings"> ${this.rings} </span>`;
+        this.hidLivesCounter.textContent = `x          ${this.lives}`;
     }
 
     initGravitation()
