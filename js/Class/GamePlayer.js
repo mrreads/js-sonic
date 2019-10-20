@@ -123,18 +123,6 @@ class GamePlayer
             {
                 this.keyD = true;
             }
-            if (event.code == 'Space') 
-            {
-                this.keySpace = true;
-            }
-            if (event.code == 'KeyW') 
-            {
-                this.keyW = true;
-            }
-            if (event.code == 'KeyS') 
-            {
-                this.keyS = true;
-            }
             this.checkKeys();
         }.bind(this));
 
@@ -148,19 +136,36 @@ class GamePlayer
             {
                 this.keyD = false;
             }
+            this.checkKeys();
+        }.bind(this));
+
+        document.addEventListener('keypress', function (event)
+        {
             if (event.code == 'Space') 
             {
-                this.keySpace = false;
+                if (this.isJumping == false & this.isGround == true)
+                {
+                    this.jump();
+                }
             }
-            if (event.code == 'KeyW') 
+            if (event.code == 'KeyS' && this.isMove == false && this.isJumping == false) 
             {
-                this.keyW = false;
+                this.crouch();
             }
-            if (event.code == 'KeyS') 
+            if (event.code == 'KeyS' && this.isMove == true && this.isJumping == false && this.isRoll == false) 
             {
-                this.keyS = false;
+                if (this.isRollable == true)
+                {
+                    this.isRoll = true;
+                    let audioRoll = new Audio('./audio/sonicRoll.wav');
+                    audioRoll.play();
+                    this.startAnimate('jump');
+                }
             }
-            this.checkKeys();
+            if ((event.code == 'KeyW' && this.isMove == false && this.isJumping == false && this.isGround == true))
+            {
+                this.lookUp();
+            }
         }.bind(this));
     }
 
@@ -174,31 +179,6 @@ class GamePlayer
         {
             this.move(25);
         }
-        if (this.keySpace == true) 
-        {
-            if (this.isJumping == false & this.isGround == true)
-            {
-                this.jump();
-            }
-        }
-        if (this.keyS == true && this.isMove == false && this.isJumping == false) 
-        {
-            this.crouch();
-        }
-        if (this.keyS == true && this.isMove == true && this.isJumping == false && this.isRoll == false) 
-        {
-            if (this.isRollable == true)
-            {
-                this.isRoll = true;
-                let audioRoll = new Audio('./audio/sonicRoll.wav');
-                audioRoll.play();
-                this.startAnimate('jump');
-            }
-        }
-        if ((this.keyW == true && this.isMove == false && this.isJumping == false && this.isGround == true))
-        {
-            this.lookUp();
-        } 
     }
 
     initHud()
@@ -370,7 +350,7 @@ class GamePlayer
         if (arg == 'jump')
         {
             this.element.style.backgroundImage = 'url("./img/sonicJump.gif")';
-            this.element.style.backgroundPosition = 'center -20px';
+            this.element.style.backgroundPosition = 'center -30px';
             this.element.style.backgroundSize = '165%';
         }
         if (arg == 'walk')
