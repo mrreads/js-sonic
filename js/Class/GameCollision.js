@@ -47,7 +47,7 @@ class GameCollision
                 if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
                 {
                     // ограничение действия коллизии по вертикали
-                    if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
+                    if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) - 35) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
                     {
                         if (this.name == this.element.classList[1])
                         {
@@ -62,7 +62,7 @@ class GameCollision
                 if (((parseInt(this.player.style.left)) < ((parseInt(this.element.style.left) + parseInt(this.element.style.width)))) && !(parseInt(this.player.style.left) < (parseInt(this.element.style.left) + (parseInt(this.element.style.width) / 2)))) 
                 {
                     // ограничение действия коллизии по вертикали
-                    if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) / 2) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
+                    if (((parseInt(this.player.style.top) + parseInt(this.player.style.height) - 35) > parseInt(this.element.style.top)) && (parseInt(this.player.style.top) <= (parseInt(this.element.style.top) + parseInt(this.element.style.height) / 2))) 
                     {
                         if (this.name == this.element.classList[1])
                         {
