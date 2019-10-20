@@ -12,68 +12,75 @@ class Game
         this.element.style.height = height + 'px';
         this.element.style.position = "relative";
         this.element.style.backgroundImage = 'url("./img/segaLogo.gif")';
+        this.skip = false;
 
-
-        setTimeout(() => 
+        if (this.skip == true)
         {
-            this.element.style.opacity = '0';
-        }, 3500);
-
-        
-        setTimeout(() => 
+            this.Level_1();
+        }
+        else
         {
-            this.element.style.backgroundPosition = '0%';
-            this.backgroundAnimate = setInterval(() => { this.element.style.backgroundPosition = (parseInt(this.element.style.backgroundPosition) + 1) + '%'; }, 150);
-            this.element.style.backgroundSize = 'cover';
-            this.element.style.backgroundImage = 'url(./img/menuBackground.png)';
+            setTimeout(() => 
+            {
+                this.element.style.opacity = '0';
+            }, 3500);
+
             
-        }, 3700);
-
-        setTimeout(() => 
-        {
-            this.element.style.opacity = '1';
-            let menuTitleAudio = new Audio('./audio/menuMusic.mp3');
-            menuTitleAudio.play();
-
-            this.sonic = document.createElement("div");
-            this.element.appendChild(this.sonic);
-            this.sonic.style.opacity = '0';
-            this.sonic.style.transition = '0.3s all';
-            this.sonic.style.position = 'absolute';
-            this.sonic.style.width = '100%';
-            this.sonic.style.height = '455px';
-            this.sonic.style.top = '85px';
-            this.sonic.style.backgroundRepeat = 'no-repeat';
-            this.sonic.style.backgroundImage = 'url(./img/menuSonic.gif)';
-
-            this.start = document.createElement("div");
-            this.element.appendChild(this.start);
-            this.start.style.opacity = '0';
-            this.start.style.transition = '0.3s all';
-            this.start.style.position = 'absolute';
-            this.start.style.width = '100%';
-            this.start.style.height = '455px';
-            this.start.style.top = '355px';
-            this.start.style.backgroundSize = '61%';
-            this.start.style.backgroundRepeat = 'no-repeat';
-            this.start.style.backgroundImage = 'url(./img/menuPressStart.png)';
+            setTimeout(() => 
+            {
+                this.element.style.backgroundPosition = '0%';
+                this.backgroundAnimate = setInterval(() => { this.element.style.backgroundPosition = (parseInt(this.element.style.backgroundPosition) + 1) + '%'; }, 150);
+                this.element.style.backgroundSize = 'cover';
+                this.element.style.backgroundImage = 'url(./img/menuBackground.png)';
+                
+            }, 3700);
 
             setTimeout(() => 
             {
-                this.sonic.style.opacity = '1';
-            }, 500);
+                this.element.style.opacity = '1';
+                let menuTitleAudio = new Audio('./audio/menuMusic.mp3');
+                menuTitleAudio.play();
 
-            setTimeout(() => 
-            {
-                this.start.style.opacity = '1';
-                this.start.style.cursor = 'pointer';
-                this.start.addEventListener('click', function()
+                this.sonic = document.createElement("div");
+                this.element.appendChild(this.sonic);
+                this.sonic.style.opacity = '0';
+                this.sonic.style.transition = '0.3s all';
+                this.sonic.style.position = 'absolute';
+                this.sonic.style.width = '100%';
+                this.sonic.style.height = '455px';
+                this.sonic.style.top = '85px';
+                this.sonic.style.backgroundRepeat = 'no-repeat';
+                this.sonic.style.backgroundImage = 'url(./img/menuSonic.gif)';
+
+                this.start = document.createElement("div");
+                this.element.appendChild(this.start);
+                this.start.style.opacity = '0';
+                this.start.style.transition = '0.3s all';
+                this.start.style.position = 'absolute';
+                this.start.style.width = '100%';
+                this.start.style.height = '455px';
+                this.start.style.top = '355px';
+                this.start.style.backgroundSize = '61%';
+                this.start.style.backgroundRepeat = 'no-repeat';
+                this.start.style.backgroundImage = 'url(./img/menuPressStart.png)';
+
+                setTimeout(() => 
                 {
-                    menuTitleAudio.pause();
-                    this.Level_1();
-                }.bind(this));
-            }, 800);
-        }, 3900);
+                    this.sonic.style.opacity = '1';
+                }, 500);
+
+                setTimeout(() => 
+                {
+                    this.start.style.opacity = '1';
+                    this.start.style.cursor = 'pointer';
+                    this.start.addEventListener('click', function()
+                    {
+                        menuTitleAudio.pause();
+                        this.Level_1();
+                    }.bind(this));
+                }, 800);
+            }, 3900);
+        }
     }
 
     levelPreview(text, act)
