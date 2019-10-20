@@ -5,7 +5,6 @@ class Game
         this.height = height;
         this.width = width;
         if (!document.querySelector(`#menu`)) { document.body.innerHTML = `<div id="menu"></div>`; }
-        setTimeout(() => { let menuSegaAudio = new Audio('./audio/menuSega.mp3'); menuSegaAudio.play(); }, 2000);
         this.element = document.querySelector(`#menu`);
         this.element.style.margin = '0 auto';
         this.element.style.width = width + 'px';
@@ -20,6 +19,8 @@ class Game
         }
         else
         {
+            setTimeout(() => { let menuSegaAudio = new Audio('./audio/menuSega.mp3'); menuSegaAudio.play(); }, 2000);
+
             setTimeout(() => 
             {
                 this.element.style.opacity = '0';
