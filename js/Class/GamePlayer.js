@@ -24,6 +24,7 @@ class GamePlayer
         this.minutes = 0;
         this.seconds = 0;
 
+        this.isFall = false;
         this.isGround = false;
         this.jumpForce = 15;
         this.mass = 2;
@@ -211,7 +212,7 @@ class GamePlayer
                     temp = parseInt(self.element.style.top) + self.mass;
                     self.element.style.top = temp + 'px';
                     
-                    if (this.isGround == false) { this.startAnimate('jump'); }
+                    if (this.isGround == false && this.isFall == true) { this.startAnimate('jump'); }
 
                     if (self.isGround != true || self.isJumping == true)
                     {

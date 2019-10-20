@@ -80,6 +80,8 @@ class GameCollision
                     // ограничение действия коллизии по горизонтали
                     if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left)) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width)))) 
                     {
+                        player.isFall = true;
+                        
                         this.tempGround = this.element.classList[1];
                         if (this.tempGround == this.element.classList[1])
                         {
@@ -165,6 +167,8 @@ class GameCollision
                         playSoundOnce = false;
                         player.isGround = false;
                     }
+
+                    player.isFall = true;
                 }
 
                 // BOTTOM COLLISION
