@@ -109,11 +109,11 @@ class GamePlayer
 
     checkMove()
     {
-        if (this.keyD == true)
+        if (this.keyD == true && this.keyA == false)
         {
             this.move(25);
         }
-        if (this.keyA == true)
+        if (this.keyA == true && this.keyD == false)
         {
             this.move(-25);
         }
