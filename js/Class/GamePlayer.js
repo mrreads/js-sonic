@@ -37,7 +37,7 @@ class GamePlayer
         this.initGravitation();
         this.initHud();
         this.initScroll();
-        this.checkedKeys = false
+        this.checkedKeys = false;
 
         setInterval(() => {
             this.checkIdle();
@@ -45,8 +45,8 @@ class GamePlayer
         }, 150);
 
         setInterval(() => {
-            this.checkKeys();
-        }, 75);
+            this.checkMove();
+        }, 50);
 
         this.isMove = false;
         this.jumpSoundDisabled = false;
@@ -107,6 +107,17 @@ class GamePlayer
         }
     }
 
+    checkMove()
+    {
+        if (this.keyD == true)
+        {
+            this.move(25);
+        }
+        if (this.keyA == true)
+        {
+            this.move(-25);
+        }
+    }
     
     keyboardControl()
     {
@@ -115,14 +126,12 @@ class GamePlayer
             if (event.code == 'KeyA') 
             {
                 this.keyA = true;
-                this.checkedKeys = false;
             }
             if (event.code == 'KeyD') 
             {
                 this.keyD = true;
-                this.checkedKeys = false;
             }
-            this.checkKeys();
+            this.checkMove();
         }.bind(this));
 
         document.addEventListener("keyup", function (event)
@@ -130,29 +139,16 @@ class GamePlayer
             if (event.code == 'KeyA') 
             {
                 this.keyA = false;
-                this.checkedKeys = true;
-                setTimeout(() => { this.checkedKeys = false; }, 150);
             }
             if (event.code == 'KeyD') 
             {
                 this.keyD = false;
-                this.checkedKeys = true;
-                setTimeout(() => { this.checkedKeys = false; }, 150);
             }
-            this.checkKeys();
+            this.checkMove();
         }.bind(this));
 
         document.addEventListener('keypress', function (event)
-        {
-            if (event.code == 'KeyA') 
-            {
-                this.move(-25);
-            }
-            if (event.code == 'KeyD') 
-            {
-                this.move(25);
-            }
-            
+        {      
             if (event.code == 'Space') 
             {
                 this.checkedKeys = true;
@@ -180,21 +176,6 @@ class GamePlayer
                 this.lookUp();
             }
         }.bind(this));
-    }
-
-    checkKeys()
-    {
-        if (this.checkedKeys == true)
-        {
-            if (this.keyA == true) 
-            {
-                this.move(-25)
-            }
-            if (this.keyD == true) 
-            {
-                this.move(25);
-            }
-        }
     }
 
     initHud()
@@ -290,7 +271,7 @@ class GamePlayer
     {
         document.querySelector(".hud p:nth-child(1)").innerHTML = `Score: <span> ${this.score} </span>`;
         document.querySelector(".hud p:nth-child(3)").innerHTML = `Rings: <span class="rings"> ${this.rings} </span>`;
-        this.hidLivesCounter.textContent = `x          ${this.lives}`;
+        this.hidLivesCounter.textContent = `x ${this.lives}`;
     }
 
     initGravitation()
