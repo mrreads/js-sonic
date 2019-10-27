@@ -52,12 +52,12 @@ class GamePlayer
         this.jumpSoundDisabled = false;
         this.leftFall = false;
         this.rightFall = false;
-
+        this.direction = 'left';
         this.keyA = false;
         this.keyD = false;
     }
 
-    move(value)
+    move(value, fact)
     {
         if (this.isCrouch == false)
         {
@@ -76,13 +76,15 @@ class GamePlayer
                         counter++;
                         if (value >= 0) 
                         { 
+                            this.direction = 'left';
                             this.element.style.transform = 'scaleX(1)';
-                            temp = parseInt(this.element.style.left) + 1;
+                            temp = parseInt(this.element.style.left) + fact;
                         } 
                         else 
                         {
+                            this.direction = 'right';
                             this.element.style.transform = 'scaleX(-1)';
-                            temp = parseInt(this.element.style.left) - 1;
+                            temp = parseInt(this.element.style.left) - fact;
                         }
                         if (temp > 0) 
                         {
@@ -111,11 +113,11 @@ class GamePlayer
     {
         if (this.keyD == true && this.keyA == false)
         {
-            this.move(25);
+            this.move(25, 1);
         }
         if (this.keyA == true && this.keyD == false)
         {
-            this.move(-25);
+            this.move(-25, 1);
         }
     }
     
@@ -154,7 +156,7 @@ class GamePlayer
                 this.checkedKeys = true;
                 if (this.isJumping == false & this.isGround == true)
                 {
-                    this.jump();
+                    this.jump(20);
                 }
             }
             if (event.code == 'KeyS' && this.isMove == false && this.isJumping == false) 
@@ -306,7 +308,7 @@ class GamePlayer
         setTimeout(startGravity, 1);
     }
 
-    jump()
+    jump(fact)
     {
         if (this.jumpSoundDisabled == false)
         {
@@ -318,7 +320,7 @@ class GamePlayer
         this.isCrouch = false;
         let jump = setInterval(function () 
         {
-            if (counter == 20) 
+            if (counter == fact) 
             {
                 this.isJumping = false;
                 clearInterval(jump);

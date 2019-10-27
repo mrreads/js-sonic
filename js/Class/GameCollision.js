@@ -171,7 +171,7 @@ class GameCollision
                             if (this.type == 'spring')
                             {   
                                 player.jumpSoundDisabled = true;
-                                player.jump();
+                                player.jump(20);
                                 if (playSoundOnce == false)
                                 {
                                     audioObjectSpring = new Audio('./audio/objectSpring.wav');
@@ -191,8 +191,25 @@ class GameCollision
                             {
                                 if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left) + 10) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width) - 10))) 
                                 {
-                                    player.rings = 0;
-                                    player.updateCounters();
+
+                                    if (playSoundOnce == false)
+                                    {
+                                        let audioSonicDamage = new Audio('./audio/sonicDamaged.wav');
+                                        audioSonicDamage.play();
+
+                                        playSoundOnce = true;
+                                        player.rings = 0;
+                                        player.updateCounters();
+                                        player.jump(15);  
+                                        if (player.direction == 'left') { player.move(-20, 10); }
+                                        if (player.direction == 'right') { player.move(20, 10); }
+                                        player.element.style.backgroundImage = 'url("./img/sonicHurt.png")';
+                                    }
+
+                                    setTimeout(() => { 
+                                        playSoundOnce = false; 
+                                        this.element.style.backgroundPosition = 'center 10px';
+                                    }, 150);
                                 }
                             }
                         }
