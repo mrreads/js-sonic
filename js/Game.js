@@ -201,6 +201,8 @@ class Game
 
             let monitor1 = new GameCollision('monitor1', player, field, 90, 90, 345, 800, './img/objectMonitorRing.png', '3', 'monitorRing');
             let monitor2 = new GameCollision('monitor2', player, field, 90, 90, 345, 1600, './img/objectMonitorLive.png', '3', 'monitorLive');
+
+            let spile1 = new GameCollision('spile1', player, field, 90, 90, 535, 4100, './img/objectSpike.png', '3', 'spike');
             let temp = 50;
             for (let i = 0; i < 5; i++)
             {

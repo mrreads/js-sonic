@@ -1,6 +1,6 @@
 class GameCollision 
 {
-    constructor(name, player, field, height, width, top, left, img, zIndex, type) 
+    constructor(name, player, field, height, width, top, left, img, zIndex, type, deg) 
     {
         this.name = name;
         this.player = player.element;
@@ -34,9 +34,21 @@ class GameCollision
             this.element.style.backgroundSize = '100%';
             this.element.style.backgroundRepeat = 'no-repeat';
         }
+        if (type == 'spike')
+        {
+            this.element.style.backgroundSize = '100%';
+            this.element.style.backgroundRepeat = 'no-repeat';
+        }
         let playSoundOnce = false;
         this.isDeleted = false;
-        
+        this.deg = 'default';
+        this.deg = deg;
+
+        if (this.deg == 'left')
+        {
+            this.element.style.transform = 'rotate(-90deg)';
+        }
+
         // Каждые **ms проверяется, входит ли игрок в коллизию. Если входит - отталкивает обратно.
         setInterval(function () 
         {
@@ -174,12 +186,21 @@ class GameCollision
                                     this.element.style.backgroundPosition = 'center 10px';
                                 }, 100);
                             }
+
+                            if (this.type == 'spike')
+                            {
+                                if (((parseInt(this.player.style.left) + parseInt(this.player.style.width)) > parseInt(this.element.style.left) + 10) && (parseInt(this.player.style.left) < (parseInt(this.element.style.left) + parseInt(this.element.style.width) - 10))) 
+                                {
+                                    player.rings = 0;
+                                    player.updateCounters();
+                                }
+                            }
                         }
                     }
                     else
                     {
-                        playSoundOnce = false;
-                        this.tempGround = null;
+                            playSoundOnce = false;
+                            this.tempGround = null;
                     }
                 }
                 else
