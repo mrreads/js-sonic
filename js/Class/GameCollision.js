@@ -44,11 +44,6 @@ class GameCollision
         this.deg = 'default';
         this.deg = deg;
 
-        if (this.deg == 'left')
-        {
-            this.element.style.transform = 'rotate(-90deg)';
-        }
-
         // Каждые **ms проверяется, входит ли игрок в коллизию. Если входит - отталкивает обратно.
         setInterval(function () 
         {
